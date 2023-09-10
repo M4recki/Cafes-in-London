@@ -1,0 +1,52 @@
+/* General font */
+
+body {
+    font-family: 'Merriweather', serif;
+}
+
+/* Navigation bar color */
+
+.navbar-bg-color {
+    background-color: #3F2305;
+}
+
+/* Navigation bar logo */
+
+.cafe-logo {
+    width: 50px;
+    height: 50px;
+    margin: 0px 15px;
+}
+
+/* Navigation bar highlight item and text properties */
+
+.nav-link {
+    position: relative;
+    margin: 15px 15px 10px 10px;
+    font-size: 115%;
+}
+  
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #F2EAD3;
+    transition: width 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}  
+
+/* Navigation bar hamburger color */
+
+.custom-toggler.navbar-toggler {
+    border-color: #F2EAD3;
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30' width='30' height='30'%3e%3cpath stroke='rgba(242, 234, 211)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}

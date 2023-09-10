@@ -8,7 +8,7 @@ from datetime import datetime
 
 @app.route('/')
 def home():
-    return '<h1>Home page</h1>'
+    return render_template('main_page.html')
 
 if __name__ == '__main__':
     app.run()
