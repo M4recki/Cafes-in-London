@@ -65,8 +65,20 @@ hr {
     background-color: #DFD7BF;
 }
 
+/* Hover crucial words */
+
+.zoom-on-hover:hover {
+    transform: scale(1.1);
+}
+
 /* Image of cafe */
 
 .cafe-image {
     min-width: 576px;
+}
+
+/* Footer properties */
+
+.footer-bg-color {
+    background-color: #3F2305;
 }
