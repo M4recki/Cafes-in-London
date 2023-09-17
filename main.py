@@ -6,9 +6,23 @@ from flask_login import login_user, LoginManager, login_required, logout_user, c
 from os import environ
 from datetime import datetime
 
+# Home page
+
 @app.route('/')
 def home():
     return render_template('main_page.html')
+
+# Register page
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    return render_template('register_page.html')
+
+# Login page
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    return render_template('login_page.html')
 
 if __name__ == '__main__':
     app.run()
