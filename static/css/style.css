@@ -78,7 +78,7 @@ hr {
     background-color: #3F2305;
 }
 
-/* Register form properties */
+/* Registration form properties  */
 
 .register-card-body {
     background-color: #F2EAD3;
@@ -93,4 +93,28 @@ hr {
 
 input[type="checkbox"]:checked {
     background-color: #3F2305;
+}
+
+/* Footer highlight item and text properties */
+
+.footer-link {
+    position: relative;
+    margin: 15px 15px 10px 10px;
+    font-size: 115%;
+}
+  
+.footer-link::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 1%;
+    right: 1%;
+    width: 0;
+    height: 2px;
+    background-color: #F2EAD3;
+    transition: width 0.3s ease-in-out;
+}
+
+.footer-link:hover::after {
+    width: 60%;
 }
