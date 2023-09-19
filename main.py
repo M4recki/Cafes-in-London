@@ -24,5 +24,11 @@ def register():
 def login():
     return render_template('login_page.html')
 
+# Contact page
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    return render_template('contact_page.html')
+
 if __name__ == '__main__':
     app.run()
