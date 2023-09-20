@@ -30,5 +30,9 @@ def login():
 def contact():
     return render_template('contact_page.html')
 
+@app.route('/suggest', methods=['GET', 'POST'])
+def suggest_cafe():
+    return render_template('suggest_cafe_page.html')
+
 if __name__ == '__main__':
     app.run()
