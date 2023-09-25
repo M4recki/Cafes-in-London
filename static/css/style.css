@@ -118,3 +118,11 @@ input[type="checkbox"]:checked {
 .footer-link:hover::after {
     width: 60%;
 }
+
+/* Tab button in cafe details */
+
+.tab-btn {
+    background-color: #DFD7BF !important;
+    border-color: #3F2305 !important;
+    color: #3F2305 !important;
+}
