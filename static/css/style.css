@@ -12,10 +12,22 @@ hr {
     display:inline-block;
 }
 
+/* Hover crucial words/items */
+
+.zoom-on-hover:hover {
+    transform: scale(1.1);
+}
+
 /* Navigation bar color */
 
 .navbar-bg-color {
     background-color: #3F2305;
+}
+
+/* Navigation bar hamburger color */
+
+.custom-toggler.navbar-toggler {
+    border-color: #F2EAD3;
 }
 
 /* Navigation bar logo properties */
@@ -47,12 +59,6 @@ hr {
 
 .nav-link:hover::after {
     width: 100%;
-}  
-
-/* Navigation bar hamburger color */
-
-.custom-toggler.navbar-toggler {
-    border-color: #F2EAD3;
 }
 
 .custom-toggler .navbar-toggler-icon {
@@ -63,19 +69,6 @@ hr {
 
 .cafe-name {
     background-color: #DFD7BF;
-}
-
-/* Hover crucial words/items */
-
-.zoom-on-hover:hover {
-    transform: scale(1.1);
-}
-
-
-/* Footer color */
-
-.footer-bg-color {
-    background-color: #3F2305;
 }
 
 /* Registration form properties  */
@@ -92,6 +85,12 @@ hr {
 }
 
 input[type="checkbox"]:checked {
+    background-color: #3F2305;
+}
+
+/* Footer color */
+
+.footer-bg-color {
     background-color: #3F2305;
 }
 
@@ -119,10 +118,41 @@ input[type="checkbox"]:checked {
     width: 60%;
 }
 
-/* Tab button in cafe details */
+/* Tab buttons in cafe details properties*/
 
 .tab-btn {
     background-color: #DFD7BF !important;
     border-color: #3F2305 !important;
     color: #3F2305 !important;
+    margin: 0;
+}
+
+@media only screen and (max-width: 550px) {
+    .tab-btn {
+        height: 50px;
+        width: 95px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+}
+
+.tab-btn:first-child {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+
+.info-btn {
+    border-radius: 0px !important;
+}
+
+.tab-btn:last-child {
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+@media only screen and (min-width: 410px) and (max-width: 768px) {
+    #location {
+        width: 375px;
+    }
 }
