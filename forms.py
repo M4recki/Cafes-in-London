@@ -7,23 +7,24 @@ from models import User, Cafe, Comment
 # Suggest cafe form
 
 class SuggestCafeForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    map_url = StringField('Map URL', validators=[DataRequired(), URL()]) 
-    img_url = StringField('Image URL', validators=[DataRequired(), URL()])
-    location = StringField('Location', validators=[DataRequired()])
-    has_sockets = BooleanField('Has sockets')
-    has_toilet = BooleanField('Has toilet')
-    has_wifi = BooleanField('Has WiFi')
-    can_take_calls = BooleanField('Can take calls')
+    name = StringField('Cafe Name', validators=[DataRequired()])
+    map_url = StringField('Cafe Map URL', validators=[DataRequired(), URL()]) 
+    img_url = StringField('Cafe Image URL', validators=[DataRequired(), URL()])
+    district = StringField('District', validators=[DataRequired()])
+    sockets_available = BooleanField('Sockets available')
+    toilet_available = BooleanField('Toilet available')
+    wifi_available = BooleanField('WiFi available')
+    take_calls_available = BooleanField('Take calls available')
     seats = StringField('Seats', validators=[DataRequired()])
     coffee_price = StringField('Coffee price', validators=[DataRequired()])
+    submit = SubmitField('Submit')
     
 
 # Register form
 
 class RegisterForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    name = StringField('Your Name', validators=[DataRequired()])
+    email = StringField('Your Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired()])
     checkbox = BooleanField('I agree to the Terms and Conditions', validators=[DataRequired()])
@@ -41,15 +42,21 @@ class RegisterForm(FlaskForm):
 # Login form
 
 class LoginForm(FlaskForm):
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    email = StringField('Your Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Your Password', validators=[DataRequired()])
     submit = SubmitField('Log in')
     
 # Contact form
 
 class ContactForm(FlaskForm):
-    name = StringField('Name', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    name = StringField('Your Name', validators=[DataRequired()])
+    email = StringField('Your Email', validators=[DataRequired(), Email()])
     subject = StringField('Subject', validators=[DataRequired()])
     message = StringField('Message', validators=[DataRequired()])
     submit = SubmitField('Send')
+    
+# Comment form
+
+class CommentForm(FlaskForm):
+    comment = StringField('Comment', validators=[DataRequired()])
+    submit = SubmitField('Submit')
