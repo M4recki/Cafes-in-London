@@ -1,14 +1,14 @@
 <section class="footer">
   <footer class="footer-bg-color text-center py-5">
     <a
-      href="#"
+      href="{{ url_for('home') }}"
       class="d-flex justify-content-center align-items-center text-decoration-none">
       <img
         src="/static/img/coffee.png"
         alt="Cafe logo"
         class="cafe-logo mx-4" />
       <p class="text-light my-5 zoom-on-hover text-center h3">
-        Cafes in London <sub>&copy </sub>2023
+        Cafes in London <sub>&copy </sub>{{ current_year }}
       </p>
     </a>
     <div class="container py-1 text-decoration-none mt-2">
