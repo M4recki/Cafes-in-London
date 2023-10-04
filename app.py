@@ -5,6 +5,7 @@ from flask_ckeditor import CKEditor
 from os import environ
 from flask_login import LoginManager
 from flask_gravatar import Gravatar
+import psycopg2
 
 # App
 
@@ -13,7 +14,7 @@ app.config['SECRET_KEY'] = environ.get("Secret_key_cafe")
 
 # Database
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///cafes.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:kickbox@localhost:5432/cafes'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
