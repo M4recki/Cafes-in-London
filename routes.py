@@ -95,12 +95,13 @@ def delete_comment(comment_id):
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
+        name = form.name.data
         email = form.email.data
         password = form.password.data
         
         user = User.query.filter_by(email=email).first()
         if user:
-            flash('Email already exists')
+            flash('Email already exists. Please login or use a different email.')
             return redirect(url_for('register'))
         
         else:
@@ -111,7 +112,8 @@ def register():
             )
             new_user = User(
                 email=email,
-                password=hash_and_salted_password
+                password=hash_and_salted_password,
+                name=name
             )
             db.session.add(new_user)
             db.session.commit()

@@ -30,11 +30,6 @@ class RegisterForm(FlaskForm):
     checkbox = BooleanField('I agree to the Terms and Conditions', validators=[DataRequired()])
     submit = SubmitField('Register')
     
-    def validate_email(self, email):
-        with app.app_context():
-            if User.query.filter_by(email=email.data).first():
-                raise ValidationError('Email already exists. Please login or use a different email.')
-    
     def validate_password(self, password):
         if password.data != self.confirm_password.data:
             raise ValidationError('Passwords do not match. Please try again.')

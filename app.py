@@ -14,7 +14,7 @@ app.config['SECRET_KEY'] = environ.get("Secret_key_cafe")
 
 # Database
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:kickbox@localhost:5432/cafes'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost:5432/cafes'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 

@@ -1,8 +1,11 @@
 <section class="navigation-bar">
   <nav class="navbar navbar-expand-lg navbar-bg-color py-3">
-    <div class="container-fluid">
+    <div class="container-fluid align-items-center">
       <a href="{{ url_for('home') }}">
         <img src="/static/img/coffee.png" alt="Cafe logo" class="cafe-logo" />
+      </a>
+      <a href="{{ url_for('home') }}" class="text-decoration-none mt-4">
+        <p class="lead text-light hover-text-navbar zoom-on-hover">Cafes in London</p>
       </a>
       <button
         class="navbar-toggler custom-toggler"
@@ -15,11 +18,19 @@
       </button>
 
       <div
-        class="collapse navbar-collapse justify-content-center"
+        class="collapse navbar-collapse justify-content-center nav-items-center "
         id="navbarNav">
         <ul class="navbar-nav mx-auto">
 
           {% if current_user.is_authenticated %}
+
+          <li class="nav-item ms-auto">
+            <p
+              class="nav-link text-light"
+              id="greetings"
+              >Welcome back, {{ current_user.name }}!</p
+            >
+          </li>
 
           <li class="nav-item ms-auto">
             <a
@@ -27,6 +38,15 @@
               id="suggest"
               href="{{ url_for('suggest_cafe') }}"
               >Suggest cafe</a
+            >
+          </li>
+
+          <li class="nav-item ms-auto">
+            <a
+              class="nav-link text-light hover-text-navbar"
+              id="logout"
+              href="{{ url_for('logout') }}"
+              >Logout</a
             >
           </li>
 
