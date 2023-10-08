@@ -39,7 +39,6 @@
   </head>
 
   <body>
-    
     <!-- Navigation bar -->
 
     {% include "nav_bar.html" %}
@@ -61,48 +60,70 @@
 
                     <!-- Contact form -->
 
-                    <form>
+                    <form
+                      action="{{ url_for('contact') }}"
+                      method="post"
+                      novalidate>
+                      {{ form.csrf_token }} {{ form.hidden_tag() }}
                       <div class="form-outline mb-4">
-                        <label class="form-label" for="Name"
-                          >Your Name</label
-                        >
-                        <input
-                          type="text"
-                          id="Name"
-                          class="form-control form-control-lg" />
+                        <label class="form-label" for="name">Your Name</label>
+                        {{ form.name(class="form-control form-control-lg",
+                        id="name") }} {% if form.name.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.name.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
                       </div>
+
                       <div class="form-outline mb-4">
-                        <label class="form-label" for="Email"
-                          >Your Email</label
-                        >
-                        <input
-                          type="email"
-                          id="Email"
-                          class="form-control form-control-lg" />
+                        <label class="form-label" for="email">Your Email</label>
+                        {{ form.email(class="form-control form-control-lg",
+                        id="email") }} {% if form.email.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.email.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
                       </div>
+
                       <div class="form-outline mb-4">
-                        <label class="form-label" for="Subject"
-                          >Subject</label
-                        >
-                        <input
-                          type="email"
-                          id="Subject"
-                          class="form-control form-control-lg" />
+                        <label class="form-label" for="email">Subject</label>
+                        {{ form.subject(class="form-control form-control-lg",
+                        id="subject") }} {% if form.subject.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.subject.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
                       </div>
+
                       <div class="form-outline mb-4">
-                        <label class="form-label" for="Message"
-                          >Message</label
-                        >
-                        <textarea
-                          id="Message"
-                          class="form-control form-control-lg"></textarea>
+                        <label class="form-label" for="email">Message</label>
+                        {{ form.message(class="form-control form-control-lg",
+                        id="message", rows="10") }} {% if form.message.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.message.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
                       </div>
+
                       <div class="d-flex justify-content-center">
-                        <button
-                          type="button"
-                          class="btn register-btn btn-block btn-lg gradient-custom-4 text-body zoom-on-hover">
-                          Send
-                        </button>
+                        {{ form.submit(class="btn register-btn btn-block btn-lg
+                        gradient-custom-4 text-body zoom-on-hover") }}
                       </div>
                     </form>
                   </div>
@@ -117,6 +138,5 @@
     <!-- Footer -->
 
     {% include "footer.html" %}
-    
   </body>
 </html>

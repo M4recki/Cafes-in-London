@@ -39,7 +39,6 @@
   </head>
 
   <body>
-
     <!-- Navigation bar -->
 
     {% include "nav_bar.html" %}
@@ -61,119 +60,187 @@
 
                     <!-- Add Cafe form -->
 
-                    <form>
+                    <form
+                      action="{{ url_for('suggest_cafe') }}"
+                      method="post"
+                      novalidate>
                       <div class="form-outline mb-4">
                         <label class="form-label" for="cafeName"
                           >Cafe Name</label
                         >
-                        <input
-                          type="text"
-                          id="cafeName"
-                          class="form-control form-control-lg" />
+                        {{ form.cafe_name(class="form-control form-control-lg",
+                        id="cafe_name") }} {% if form.cafe_name.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.cafe_name.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %} {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for message in messages %}
+                            <label for="error-message">{{ message }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %} {% endwith %}
                       </div>
 
                       <div class="form-outline mb-4">
                         <label class="form-label" for="cafeMapUrl"
                           >Cafe Map Url</label
                         >
-                        <input
-                          type="url"
-                          id="cafeMapUrl"
-                          class="form-control form-control-lg" />
+                        {{ form.map_url(class="form-control form-control-lg",
+                        id="map_url") }} {% if form.map_url.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.map_url.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
                       </div>
 
                       <div class="form-outline mb-4">
                         <label class="form-label" for="cafeImageUrl"
                           >Cafe Image Url</label
                         >
-                        <input
-                          type="url"
-                          id="cafeImageUrl"
-                          class="form-control form-control-lg" />
+                        {{ form.img_url(class="form-control form-control-lg",
+                        id="img_url") }} {% if form.img_url.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.img_url.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
                       </div>
 
                       <div class="form-outline mb-4">
                         <label class="form-label" for="cafeDistrict"
                           >District</label
                         >
-                        <input
-                          type="text"
-                          id="cafeDistrict"
-                          class="form-control form-control-lg" />
+                        {{ form.district(class="form-control form-control-lg",
+                        id="district") }} {% if form.district.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.district.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
                       </div>
 
-                      <div class="form-check mb-4">
-                        <label class="form-check-label" for="socketsCheck">
+                      <div class="form-check d-flex mb-3">
+                        {{ form.sockets_available(class="form-check-input",
+                        id="sockets_available") }}
+                        <label class="form-check-label mx-2" for="socketsCheck">
                           Sockets Available
                         </label>
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="socketsCheck" />
+                        {% if form.sockets_available.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.sockets_available.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
                       </div>
 
-                      <div class="form-check mb-4">
-                        <label class="form-check-label" for="toiletCheck">
+                      <div class="form-check d-flex mb-3">
+                        {{ form.toilet_available(class="form-check-input",
+                        id="toilet_available") }}
+                        <label class="form-check-label mx-2" for="toiletCheck">
                           Toilet Available
                         </label>
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="toiletCheck" />
+                        {% if form.toilet_available.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.toilet_available.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
                       </div>
 
-                      <div class="form-check mb-4">
-                        <label class="form-check-label" for="wifiCheck">
+                      <div class="form-check d-flex mb-3">
+                        {{ form.wifi_available(class="form-check-input",
+                        id="wifi_available") }}
+                        <label class="form-check-label mx-2" for="wifiCheck">
                           Wi-Fi Available
                         </label>
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="wifiCheck" />
+                        {% if form.wifi_available.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.wifi_available.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
                       </div>
 
-                      <div class="form-check mb-4">
-                        <label class="form-check-label" for="callsCheck">
+                      <div class="form-check d-flex mb-3">
+                        {{ form.take_calls_available(class="form-check-input",
+                        id="take_calls_available") }}
+                        <label class="form-check-label mx-2" for="callsCheck">
                           Take Calls Available
                         </label>
-                        <input
-                          class="form-check-input"
-                          type="checkbox"
-                          value=""
-                          id="callsCheck" />
+                        {% if form.take_calls_available.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.take_calls_available.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
                       </div>
 
-                      <div class="form-check mb-4">
+                      <div class="form-outline mb-4">
                         <label class="form-check-label" for="seats">
                           Seats
                         </label>
-                        <input
-                          class="form-check-input"
-                          type="number"
-                          value=""
-                          id="seats" />
+                        {{ form.seats(class="form-control form-control-lg",
+                        id="seats") }} {% if form.seats.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.seats.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
                       </div>
 
-                      <div class="form-check mb-4">
+                      <div class="form-outline mb-4">
                         <label class="form-check-label" for="coffeePrice">
                           Coffee Price
                         </label>
-                        <input
-                          class="form-check-input"
-                          type="text"
-                          value=""
-                          id="coffeePrice" />
+                        {{ form.coffee_price(class="form-control
+                        form-control-lg", id="coffee_price") }} {% if
+                        form.coffee_price.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.coffee_price.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
                       </div>
 
                       <div class="d-flex justify-content-center">
-                        <button
-                          type="button"
-                          class="btn register-btn btn-block btn-lg gradient-custom-4 text-body zoom-on-hover">
-                          Submit
-                        </button>
+                        {{ form.submit(class="btn register-btn btn-block btn-lg
+                        gradient-custom-4 text-body zoom-on-hover") }}
                       </div>
                     </form>
                   </div>
@@ -188,6 +255,5 @@
     <!-- Footer -->
 
     {% include "footer.html" %}
-    
   </body>
 </html>

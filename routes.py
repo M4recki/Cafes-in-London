@@ -27,7 +27,7 @@ def load_user(user_id):
 def admin_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if current_user.is_anonymous or current_user.role != 'admin':
+        if current_user.is_anonymous or current_user.id != 1:
             return abort(403)
         return f(*args, **kwargs)
     return decorated_function
@@ -199,25 +199,35 @@ def contact():
 def suggest_cafe():
     form = SuggestCafeForm()
     if form.validate_on_submit():
-        name = form.name.data
+        cafe_name = form.cafe_name.data
         map_url = form.map_url.data
         img_url = form.img_url.data
         district = form.district.data
         sockets_available = form.sockets_available.data
+        toilet_available = form.toilet_available.data
         wifi_available = form.wifi_available.data
         take_calls_available = form.take_calls_available.data
         seats = form.seats.data
         coffee_price = form.coffee_price.data
         
-        new_cafe = SuggestCafe(name=name, map_url=map_url, img_url=img_url, district=district, sockets_available=sockets_available, wifi_available=wifi_available, take_calls_available=take_calls_available, seats=seats, coffee_price=coffee_price)
+        cafe_suggestion = SuggestCafe(cafe_name=cafe_name, map_url=map_url, img_url=img_url, district=district, sockets_available=sockets_available, toilet_available=toilet_available, wifi_available=wifi_available, take_calls_available=take_calls_available, seats=seats, coffee_price=coffee_price)
         
-        db.session.add(new_cafe)
+        db.session.add(cafe_suggestion)
         db.session.commit()
         
         return redirect(url_for('home'))
     
     flash_messages = get_flashed_messages()
     return render_template('suggest_cafe_page.html', form=form, flash_messages=flash_messages)
+
+# Add new cafe page
+
+@app.route('/add_cafe', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def add_cafe():
+    cafes = SuggestCafe.query.all()
+    return render_template('add_cafe_page.html', cafes=cafes)
 
 # Cafe details page
 

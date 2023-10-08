@@ -3,18 +3,19 @@ from wtforms import StringField, PasswordField, BooleanField, SelectField, Radio
 from wtforms.validators import DataRequired, Email, URL
 from app import app, db
 from models import User, Cafe, Comment
+from wtforms import TextAreaField
 
 # Suggest cafe form
 
 class SuggestCafeForm(FlaskForm):
-    name = StringField('Cafe Name', validators=[DataRequired()])
+    cafe_name = StringField('Cafe Name', validators=[DataRequired()])
     map_url = StringField('Cafe Map URL', validators=[DataRequired(), URL()]) 
     img_url = StringField('Cafe Image URL', validators=[DataRequired(), URL()])
     district = StringField('District', validators=[DataRequired()])
-    sockets_available = BooleanField('Sockets available')
-    toilet_available = BooleanField('Toilet available')
-    wifi_available = BooleanField('WiFi available')
-    take_calls_available = BooleanField('Take calls available')
+    sockets_available = BooleanField('Sockets available', validators=[DataRequired()])
+    toilet_available = BooleanField('Toilet available', validators=[DataRequired()])
+    wifi_available = BooleanField('WiFi available', validators=[DataRequired()])
+    take_calls_available = BooleanField('Take calls available', validators=[DataRequired()])
     seats = StringField('Seats', validators=[DataRequired()])
     coffee_price = StringField('Coffee price', validators=[DataRequired()])
     submit = SubmitField('Submit')
@@ -47,7 +48,7 @@ class ContactForm(FlaskForm):
     name = StringField('Your Name', validators=[DataRequired()])
     email = StringField('Your Email', validators=[DataRequired(), Email()])
     subject = StringField('Subject', validators=[DataRequired()])
-    message = StringField('Message', validators=[DataRequired()])
+    message = TextAreaField('Message', validators=[DataRequired()])
     submit = SubmitField('Send')
     
 # Comment form
