@@ -200,6 +200,7 @@ def suggest_cafe():
     form = SuggestCafeForm()
     if form.validate_on_submit():
         cafe_name = form.cafe_name.data
+        description = form.description.data
         map_url = form.map_url.data
         img_url = form.img_url.data
         district = form.district.data
@@ -226,8 +227,9 @@ def suggest_cafe():
 @login_required
 @admin_required
 def add_cafe():
+    form = SuggestCafeForm()
     cafes = SuggestCafe.query.all()
-    return render_template('add_cafe_page.html', cafes=cafes)
+    return render_template('add_cafe_page.html', form=form, cafes=cafes)
 
 # Cafe details page
 

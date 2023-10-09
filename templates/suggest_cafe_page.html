@@ -90,6 +90,22 @@
                       </div>
 
                       <div class="form-outline mb-4">
+                        <label class="form-label" for="description"
+                          >Description</label
+                        >
+                        {{ form.description(class="form-control form-control-lg",
+                        id="description", rows="10") }} {% if form.description.errors %}
+                        <div class="fluid-container py-2">
+                          <ul class="alert alert-danger px-2">
+                            {% for error in form.description.errors %}
+                            <label for="error-message">{{ error }}</label>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
+                      </div>
+
+                      <div class="form-outline mb-4">
                         <label class="form-label" for="cafeMapUrl"
                           >Cafe Map Url</label
                         >

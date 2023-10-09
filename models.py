@@ -22,6 +22,7 @@ class Cafe(db.Model):
     __tablename__ = "cafe"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.Text, nullable=True)
     map_url = db.Column(db.String(100), nullable=False)
     img_url = db.Column(db.String(150), nullable=False)
     location = db.Column(db.String(50), nullable=False)
@@ -31,7 +32,6 @@ class Cafe(db.Model):
     can_take_calls = db.Column(db.Boolean, nullable=False)
     seats = db.Column(db.String(10), nullable=False)
     coffee_price = db.Column(db.String(10), nullable=False)
-    description = db.Column(db.Text, nullable=True)
 
 
 # Suggest cafe table
@@ -41,6 +41,7 @@ class SuggestCafe(db.Model):
     __tablename__ = "suggest_cafe"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
+    description = db.Column(db.Text, nullable=True)
     map_url = db.Column(db.String(100), nullable=False)
     img_url = db.Column(db.String(150), nullable=False)
     location = db.Column(db.String(50), nullable=False)
@@ -50,7 +51,6 @@ class SuggestCafe(db.Model):
     can_take_calls = db.Column(db.Boolean, nullable=False)
     seats = db.Column(db.String(10), nullable=False)
     coffee_price = db.Column(db.String(10), nullable=False)
-    description = db.Column(db.Text, nullable=True)
 
 
 # Comment table

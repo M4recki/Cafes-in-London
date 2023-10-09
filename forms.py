@@ -9,6 +9,7 @@ from wtforms import TextAreaField
 
 class SuggestCafeForm(FlaskForm):
     cafe_name = StringField('Cafe Name', validators=[DataRequired()])
+    description = TextAreaField('Description', validators=[DataRequired()])
     map_url = StringField('Cafe Map URL', validators=[DataRequired(), URL()]) 
     img_url = StringField('Cafe Image URL', validators=[DataRequired(), URL()])
     district = StringField('District', validators=[DataRequired()])
