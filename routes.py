@@ -231,6 +231,15 @@ def add_cafe():
     cafes = SuggestCafe.query.all()
     return render_template('add_cafe_page.html', form=form, cafes=cafes)
 
+# Preview cafe page
+
+@app.route('/preview_cafe/<int:cafe_id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def preview_cafe(cafe_id):
+    cafe = SuggestCafe.query.get(cafe_id)
+    return render_template('preview_cafe_page.html', cafe=cafe)
+
 # Cafe details page
 
 @app.route('/cafe_details', methods=['GET', 'POST'])
