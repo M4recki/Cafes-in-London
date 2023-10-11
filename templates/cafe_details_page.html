@@ -55,13 +55,13 @@
                 class="d-flex justify-content-center align-items-center d-sm-flex p-3">
                 <hr />
                 <h1 class="text-lead text-center py-5">
-                  Peggy Porschen Belgravia
+                  {{ cafe.name }}
                 </h1>
                 <hr />
               </div>
               <div class="container d-flex justify-content-center p-3">
                 <img
-                  src="/static/img/cafe.jpg"
+                  src="{{ cafe.img_url }}"
                   class="rounded img-fluid w-100"
                   alt="Cafe image" />
               </div>
@@ -121,12 +121,7 @@
                   role="tabpanel"
                   aria-labelledby="description-tab">
                   <p class="lead lh-lg">
-                    Peggy Porschen Cafe is a popular brunch spot in London known
-                    for its elegant and instagrammable setting, delicious food,
-                    and excellent service. The cafe offers a variety of dishes,
-                    including eggs, sandwiches, salads, and pastries, as well as
-                    a selection of coffee and tea. It is particularly popular
-                    among tourists and inexplicably famous personalities.
+                    {{ cafe.description }}
                   </p>
                 </div>
                 <div
@@ -139,30 +134,30 @@
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                           <i class="bi bi-badge-ar-fill px-3"></i>Cafe name:
-                          Peggy Porschen Belgravia
+                          {{ cafe.name }}
                         </li>
                         <li class="list-group-item">
                           <i class="bi bi-lightning-charge-fill px-3"></i>Has
-                          sockets: Yes
+                          sockets: {{ "Yes" if cafe.has_sockets else "No" }}
                         </li>
                         <li class="list-group-item">
                           <i class="bi bi-badge-wc-fill px-3"></i>Has toilet:
-                          Yes
+                          {{ "Yes" if cafe.has_toilet else "No" }}
                         </li>
                         <li class="list-group-item">
-                          <i class="bi bi-wifi px-3"></i>Has WiFi: Yes
+                          <i class="bi bi-wifi px-3"></i>Has WiFi: {{ "Yes" if cafe.has_wifi else "No" }}
                         </li>
                         <li class="list-group-item">
                           <i class="bi bi-telephone-fill px-3"></i>Can take
-                          calls: Yes
+                          calls: {{ "Yes" if cafe.can_take_calls else "No" }}
                         </li>
                         <li class="list-group-item">
                           <i class="bi bi-person-fill px-3"></i>Available seats:
-                          30-40
+                          {{ cafe.seats }}
                         </li>
                         <li class="list-group-item">
                           <i class="bi bi-currency-pound px-3"></i>Coffee price:
-                          £3.00
+                          {{ cafe.coffee_price }}
                         </li>
                       </ul>
                     </div>
@@ -178,12 +173,12 @@
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                           <i class="bi bi-pin-map-fill px-3"></i>Cafe location:
-                          Belgravia
+                          {{ cafe.location }}
                         </li>
                         <li class="list-group-item">
                           <i class="bi bi-map-fill px-3"></i>Map Url:
-                          <a href="https://maps.app.goo.gl/RsqR6ZxxYZ9qCQ2F9"
-                            >https://maps.app.goo.gl/RsqR6ZxxYZ9qCQ2F9</a
+                          <a href="{{ cafe.map_url }}" target="_blank"
+                            >{{ cafe.map_url }}</a
                           >
                         </li>
                       </ul>
@@ -206,38 +201,32 @@
             <h2 class="text-center mb-5">User Reviews</h2>
             <div class="row">
               <div class="col-12 col-md-6 col-lg-4 mb-4">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex align-items-center mb-3">
-                      <img
-                        src="/static/img/man.png"
-                        alt="User Avatar"
-                        class="rounded-circle me-2"
-                        style="width: 50px; height: 50px" />
-                      <h5 class="card-title mb-0">User Name #1</h5>
-                    </div>
-                    <p class="card-text">
-                      This is a great cafe with excellent coffee and pastries.
-                      The ambiance is also very nice. Highly recommended!
-                    </p>
-                  </div>
+
+              <!-- Comment form -->
+
+              <form action="url_for('cafe_details', cafe_id=cafe.id)" method="post" novalidate>
+                {{ form.csrf_token }} {{ form.hidden_tag() }}
+                <div class="form-group">
+                  {{ comment_form.comment(class="form-control") }}
                 </div>
-              </div>
-              <div class="col-12 col-md-6 col-lg-4 mb-4">
+                {{ comment_form.submit(class="btn btn-primary") }}
+              </form>
+
+              <!-- Existing comments -->
+              {% for comment in all_comments %}
+
                 <div class="card">
                   <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                       <img
-                        src="/static/img/human.png"
+                        src="{{ comment.user.gravatar() }}"
                         alt="User Avatar"
                         class="rounded-circle me-2"
                         style="width: 50px; height: 50px" />
-                      <h5 class="card-title mb-0">User Name #2</h5>
+                      <p class="card-title mb-0 lead">{{ comment.user_name }}</p>
                     </div>
                     <p class="card-text">
-                      This is a wonderful cafe with delicious pastries and
-                      coffee. Also extremely pleasant is the atmosphere. Highly
-                      advisable.
+                      {{ comment.comment }}
                     </p>
                   </div>
                 </div>

@@ -3,6 +3,8 @@ from app import app, db
 from os import environ
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, flash
+from flask_gravatar import Gravatar
+
 
 # User table
 
@@ -13,6 +15,9 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(100))
+    
+    def gravatar(self):
+        gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False, base_url=None)
 
 
 # Cafe table
@@ -61,6 +66,10 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.Text, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    user_name = db.Column(db.String(100), db.ForeignKey("users.name"))
     cafe_id = db.Column(db.Integer, db.ForeignKey("cafe.id"))
     user = db.relationship("User", backref=db.backref("comments", lazy=True))
     cafe = db.relationship("Cafe", backref=db.backref("comments", lazy=True))
+    
+with app.app_context():
+    db.create_all()
