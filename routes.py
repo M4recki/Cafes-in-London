@@ -246,15 +246,15 @@ def preview_cafe(cafe_id):
 def cafe_details(cafe_id):
     cafe = Cafe.query.get(cafe_id)
     all_comments = Comment.query.filter_by(cafe_id=cafe_id).all()
-    comment_form = CommentForm()
+    form = CommentForm()
     
-    if comment_form.validate_on_submit():
-        comment = Comment(user=current_user, cafe_id=cafe_id, comment=comment_form.comment.data)
+    if form.validate_on_submit():
+        comment = Comment(comment=form.comment.data, user_id=current_user.id, user_name=current_user.name, cafe_id=cafe_id)
         db.session.add(comment)
         db.session.commit()
         return redirect(url_for('cafe_details', cafe_id=cafe_id))
 
-    return render_template('cafe_details_page.html', cafe=cafe, all_comments=all_comments, comment_form=comment_form, gravatar=gravatar)
+    return render_template('cafe_details_page.html', cafe=cafe, all_comments=all_comments, form=form, user=current_user, gravatar=gravatar)
 
 if __name__ == '__main__':
     app.run(debug=True)

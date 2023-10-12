@@ -5,6 +5,7 @@ from flask_ckeditor import CKEditor
 from os import environ
 from flask_login import LoginManager
 import psycopg2
+from flask_gravatar import Gravatar
 
 # App
 
@@ -20,4 +21,16 @@ db = SQLAlchemy(app)
 # Bootstrap Gravatar, CKEditor
 
 bootstrap = Bootstrap(app)
+
 ckeditor = CKEditor(app)
+
+gravatar = Gravatar(
+    app,
+    size=100,
+    rating="g",
+    default="retro",
+    force_default=False,
+    force_lower=False,
+    use_ssl=False,
+    base_url=None,
+)

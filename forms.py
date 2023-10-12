@@ -55,5 +55,5 @@ class ContactForm(FlaskForm):
 # Comment form
 
 class CommentForm(FlaskForm):
-    comment = StringField('Comment', validators=[DataRequired()])
+    comment = TextAreaField('Comment', validators=[DataRequired()])
     submit = SubmitField('Submit')
