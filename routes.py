@@ -249,12 +249,13 @@ def cafe_details(cafe_id):
     form = CommentForm()
     
     if form.validate_on_submit():
-        comment = Comment(comment=form.comment.data, user_id=current_user.id, user_name=current_user.name, cafe_id=cafe_id)
+        comment = Comment(comment=form.comment.data, cafe_id=cafe_id, comment_author=current_user.id)
         db.session.add(comment)
         db.session.commit()
         return redirect(url_for('cafe_details', cafe_id=cafe_id))
 
-    return render_template('cafe_details_page.html', cafe=cafe, all_comments=all_comments, form=form, user=current_user, gravatar=gravatar)
+    print(cafe)
+    return render_template('cafe_details_page.html', cafe=cafe, all_comments=all_comments, form=form, gravatar=gravatar, cafe_id=cafe_id)
 
 if __name__ == '__main__':
     app.run(debug=True)

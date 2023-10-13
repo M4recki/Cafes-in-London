@@ -15,9 +15,8 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(100))
-
-    def gravatar(self, size=100):
-        return gravatar(size, self.email, self.name)
+    cafes = db.relationship("Cafe", backref=db.backref("user", lazy=True), foreign_keys="Cafe.user_id")
+    comments = db.relationship("Comment", backref=db.backref("user", lazy=True))
 
 
 # Cafe table
@@ -28,8 +27,8 @@ class Cafe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.Text, nullable=True)
-    map_url = db.Column(db.String(100), nullable=False)
-    img_url = db.Column(db.String(150), nullable=False)
+    map_url = db.Column(db.Text, nullable=False)
+    img_url = db.Column(db.Text, nullable=False)
     location = db.Column(db.String(50), nullable=False)
     has_sockets = db.Column(db.Boolean, nullable=False)
     has_toilet = db.Column(db.Boolean, nullable=False)
@@ -37,6 +36,8 @@ class Cafe(db.Model):
     can_take_calls = db.Column(db.Boolean, nullable=False)
     seats = db.Column(db.String(10), nullable=False)
     coffee_price = db.Column(db.String(10), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    comments = db.relationship("Comment", backref=db.backref("cafe", lazy=True))
 
 
 # Suggest cafe table
@@ -47,8 +48,8 @@ class SuggestCafe(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
     description = db.Column(db.Text, nullable=True)
-    map_url = db.Column(db.String(100), nullable=False)
-    img_url = db.Column(db.String(150), nullable=False)
+    map_url = db.Column(db.Text, nullable=False)
+    img_url = db.Column(db.Text, nullable=False)
     location = db.Column(db.String(50), nullable=False)
     has_sockets = db.Column(db.Boolean, nullable=False)
     has_toilet = db.Column(db.Boolean, nullable=False)
@@ -65,11 +66,8 @@ class Comment(db.Model):
     __tablename__ = "comments"
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.Text, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    user_name = db.Column(db.String(100), nullable=False)
-    cafe_id = db.Column(db.Integer, db.ForeignKey("cafe.id"))
-    user = db.relationship("User", backref=db.backref("comments", lazy=True))
-    cafe = db.relationship("Cafe", backref=db.backref("comments", lazy=True))
+    cafe_id = db.Column(db.Integer, db.ForeignKey("cafe.id"), nullable=False)
+    comment_author = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     
 with app.app_context():
     db.create_all()

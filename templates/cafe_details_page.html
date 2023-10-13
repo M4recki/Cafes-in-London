@@ -224,20 +224,16 @@
                   {{ form.submit(class="btn register-btn btn-block btn-lg
                   gradient-custom-4 text-body zoom-on-hover mb-5") }}
                 </div>
-                </form>
+              </form>
 
               <!-- Existing comments -->
+              
               {% if all_comments %}
                 {% for comment in all_comments %}
-                  <div class="card">
+                  <div class="card mb-5">
                     <div class="card-body">
                       <div class="d-flex align-items-center mb-3">
-                        <img
-                          src="{{ gravatar(user.email) }}"
-                          alt="User Avatar"
-                          class="rounded-circle me-2 cafe-logo"
-                          />
-                        <p class="card-title mb-0 lead">{{ comment.user_name }}</p>
+                        <p class="card-title mb-0 lead">{{ comment.user.name }}</p>
                       </div>
                       <p class="card-text">
                         {{ comment.comment }}
