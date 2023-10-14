@@ -13,6 +13,7 @@ import smtplib
 from functools import wraps
 from flask import abort
 
+
 # Login manager
 
 login_manager = LoginManager(app)
@@ -49,22 +50,20 @@ def home():
 
 # Cafe details page
 
-@app.route('/cafe/<int:cafe_id>')
-def cafe(cafe_id):
-    form = CommentForm()
+@app.route('/cafe/<int:cafe_id>', methods=['GET', 'POST'])
+def cafe_details(cafe_id):
     cafe = Cafe.query.get(cafe_id)
+    form = CommentForm()
     
     if form.validate_on_submit():
-        if not current_user.is_authenticated:
-            flash('You need to login or register to comment.')
-            return redirect(url_for('login'))
-        text = form.comment_text.data
-        new_comment = Comment(text=text, author_id=current_user.id, cafe_id=cafe_id)
-        db.session.add(new_comment)
+        comment = Comment(comment=form.comment.data, cafe_id=cafe_id, comment_author=current_user.id)
+        
+        db.session.add(comment)
         db.session.commit()
-        return redirect(url_for('cafe', cafe_id=cafe_id))
-    else:
-        return render_template('cafe_details_page.html', current_user=current_user, cafe=cafe, form=form, gravatar=gravatar)   
+        return redirect(url_for('cafe_details', cafe_id=cafe_id))
+
+
+    return render_template('cafe_details_page.html', cafe=cafe, form=form, user=current_user, gravatar=gravatar)   
     
 # Edit comment
 
@@ -199,19 +198,19 @@ def contact():
 def suggest_cafe():
     form = SuggestCafeForm()
     if form.validate_on_submit():
-        cafe_name = form.cafe_name.data
+        name = form.cafe_name.data
         description = form.description.data
         map_url = form.map_url.data
         img_url = form.img_url.data
         district = form.district.data
-        sockets_available = form.sockets_available.data
-        toilet_available = form.toilet_available.data
-        wifi_available = form.wifi_available.data
-        take_calls_available = form.take_calls_available.data
+        has_sockets = form.sockets_available.data
+        has_toilet = form.toilet_available.data
+        has_wifi = form.wifi_available.data
+        can_take_calls = form.take_calls_available.data
         seats = form.seats.data
         coffee_price = form.coffee_price.data
         
-        cafe_suggestion = SuggestCafe(cafe_name=cafe_name, map_url=map_url, img_url=img_url, district=district, sockets_available=sockets_available, toilet_available=toilet_available, wifi_available=wifi_available, take_calls_available=take_calls_available, seats=seats, coffee_price=coffee_price)
+        cafe_suggestion = SuggestCafe(name=name, description=description, map_url=map_url, img_url=img_url, district=district, has_sockets=has_sockets, has_toilet=has_toilet, has_wifi=has_wifi, can_take_calls=can_take_calls, seats=seats, coffee_price=coffee_price, suggestion_author=current_user.id)
         
         db.session.add(cafe_suggestion)
         db.session.commit()
@@ -239,23 +238,6 @@ def add_cafe():
 def preview_cafe(cafe_id):
     cafe = SuggestCafe.query.get(cafe_id)
     return render_template('preview_cafe_page.html', cafe=cafe)
-
-# Cafe details page
-
-@app.route('/cafe_details/<int:cafe_id>', methods=['GET', 'POST'])
-def cafe_details(cafe_id):
-    cafe = Cafe.query.get(cafe_id)
-    all_comments = Comment.query.filter_by(cafe_id=cafe_id).all()
-    form = CommentForm()
-    
-    if form.validate_on_submit():
-        comment = Comment(comment=form.comment.data, cafe_id=cafe_id, comment_author=current_user.id)
-        db.session.add(comment)
-        db.session.commit()
-        return redirect(url_for('cafe_details', cafe_id=cafe_id))
-
-    print(cafe)
-    return render_template('cafe_details_page.html', cafe=cafe, all_comments=all_comments, form=form, gravatar=gravatar, cafe_id=cafe_id)
 
 if __name__ == '__main__':
     app.run(debug=True)

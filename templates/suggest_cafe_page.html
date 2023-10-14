@@ -159,15 +159,6 @@
                         <label class="form-check-label mx-2" for="socketsCheck">
                           Sockets Available
                         </label>
-                        {% if form.sockets_available.errors %}
-                        <div class="fluid-container py-2">
-                          <ul class="alert alert-danger px-2">
-                            {% for error in form.sockets_available.errors %}
-                            <label for="error-message">{{ error }}</label>
-                            {% endfor %}
-                          </ul>
-                        </div>
-                        {% endif %}
                       </div>
 
                       <div class="form-check d-flex mb-3">
@@ -176,15 +167,6 @@
                         <label class="form-check-label mx-2" for="toiletCheck">
                           Toilet Available
                         </label>
-                        {% if form.toilet_available.errors %}
-                        <div class="fluid-container py-2">
-                          <ul class="alert alert-danger px-2">
-                            {% for error in form.toilet_available.errors %}
-                            <label for="error-message">{{ error }}</label>
-                            {% endfor %}
-                          </ul>
-                        </div>
-                        {% endif %}
                       </div>
 
                       <div class="form-check d-flex mb-3">
@@ -193,15 +175,6 @@
                         <label class="form-check-label mx-2" for="wifiCheck">
                           Wi-Fi Available
                         </label>
-                        {% if form.wifi_available.errors %}
-                        <div class="fluid-container py-2">
-                          <ul class="alert alert-danger px-2">
-                            {% for error in form.wifi_available.errors %}
-                            <label for="error-message">{{ error }}</label>
-                            {% endfor %}
-                          </ul>
-                        </div>
-                        {% endif %}
                       </div>
 
                       <div class="form-check d-flex mb-3">
@@ -210,19 +183,10 @@
                         <label class="form-check-label mx-2" for="callsCheck">
                           Take Calls Available
                         </label>
-                        {% if form.take_calls_available.errors %}
-                        <div class="fluid-container py-2">
-                          <ul class="alert alert-danger px-2">
-                            {% for error in form.take_calls_available.errors %}
-                            <label for="error-message">{{ error }}</label>
-                            {% endfor %}
-                          </ul>
-                        </div>
-                        {% endif %}
                       </div>
 
                       <div class="form-outline mb-4">
-                        <label class="form-check-label" for="seats">
+                        <label class="form-label" for="seats">
                           Seats
                         </label>
                         {{ form.seats(class="form-control form-control-lg",
@@ -238,7 +202,7 @@
                       </div>
 
                       <div class="form-outline mb-4">
-                        <label class="form-check-label" for="coffeePrice">
+                        <label class="form-label" for="coffeePrice">
                           Coffee Price
                         </label>
                         {{ form.coffee_price(class="form-control
