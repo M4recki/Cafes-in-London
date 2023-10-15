@@ -162,3 +162,11 @@ input[type="checkbox"]:checked {
         width: 375px;
     }
 }
+
+/* width of the district/location field for mobile devices */
+
+@media only screen and (min-width: 410px) and (max-width: 770px)  {
+    #location {
+        width: 100%;
+    }
+}

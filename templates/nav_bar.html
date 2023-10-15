@@ -39,11 +39,11 @@
             <a
               class="nav-link text-light hover-text-navbar"
               id="add-cafe"
-              href="{{ url_for('add_cafe') }}"
+              href="{{ url_for('choose_cafe') }}"
               >Add a new cafe</a
             >
           </li>
-          {% endif %} 
+          {% endif %}
 
           <li class="nav-item ms-auto">
             <a
@@ -60,6 +60,15 @@
               id="logout"
               href="{{ url_for('logout') }}"
               >Logout</a
+            >
+          </li>
+          
+          <li class="nav-item ms-auto">
+            <a
+              class="nav-link text-light hover-text-navbar"
+              id="contact"
+              href="{{ url_for('contact') }}"
+              >Contact</a
             >
           </li>
 

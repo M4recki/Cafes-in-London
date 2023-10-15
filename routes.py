@@ -1,8 +1,7 @@
-from app import app, db, bootstrap, gravatar, ckeditor
+from app import app, db, gravatar
 from models import User, Cafe, SuggestCafe, Comment
-from forms import RegisterForm, LoginForm, ContactForm, SuggestCafeForm, CommentForm
-from flask import Flask, render_template, redirect, url_for, flash, get_flashed_messages
-from flask_bootstrap import Bootstrap
+from forms import RegisterForm, LoginForm, ContactForm, SuggestCafeForm, CommentForm, PreviewCafeForm
+from flask import render_template, redirect, url_for, flash, get_flashed_messages, request, abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_user, LoginManager, login_required, logout_user, current_user
 from os import environ
@@ -11,7 +10,6 @@ from email.message import EmailMessage
 import ssl
 import smtplib
 from functools import wraps
-from flask import abort
 
 
 # Login manager
@@ -56,6 +54,9 @@ def cafe_details(cafe_id):
     form = CommentForm()
     
     if form.validate_on_submit():
+        if current_user.is_anonymous:
+            flash('You must be logged in to comment.')
+            return redirect(url_for('login'))
         comment = Comment(comment=form.comment.data, cafe_id=cafe_id, comment_author=current_user.id)
         
         db.session.add(comment)
@@ -67,7 +68,7 @@ def cafe_details(cafe_id):
     
 # Edit comment
 
-@app.route('/edit-comment/<int:comment_id>', methods=['GET', 'POST'])
+@app.route('/edit_comment/<int:comment_id>', methods=['GET', 'POST'])
 @login_required
 def edit_comment(comment_id):
     comment = Comment.query.get(comment_id)
@@ -80,13 +81,34 @@ def edit_comment(comment_id):
 
 # Delete comment
 
-@app.route('/delete-comment/<int:comment_id>')
+@app.route('/delete_comment/<int:comment_id>')
 @login_required
 def delete_comment(comment_id):
     comment = Comment.query.get(comment_id)
     db.session.delete(comment)
     db.session.commit()
     return redirect(url_for('cafe', cafe_id=comment.cafe_id))
+
+# Edit cafe from main page
+
+@app.route('/edit_cafe/<int:cafe_id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+@admin_required
+def edit_cafe_home(cafe_id):
+    cafe = Cafe.query.get(cafe_id)
+    
+
+# Delete cafe from main page
+
+@app.route('/delete_cafe/<int:cafe_id>')
+@login_required
+@admin_required
+def delete_cafe_home(cafe_id):
+    cafe = Cafe.query.get(cafe_id)
+    db.session.delete(cafe)
+    db.session.commit()
+    return redirect(url_for('home'))
 
 # Register page
 
@@ -198,19 +220,19 @@ def contact():
 def suggest_cafe():
     form = SuggestCafeForm()
     if form.validate_on_submit():
-        name = form.cafe_name.data
+        name = form.name.data
         description = form.description.data
         map_url = form.map_url.data
         img_url = form.img_url.data
-        district = form.district.data
-        has_sockets = form.sockets_available.data
-        has_toilet = form.toilet_available.data
-        has_wifi = form.wifi_available.data
-        can_take_calls = form.take_calls_available.data
+        location = form.location.data
+        has_sockets = form.has_sockets.data
+        has_toilet = form.has_toilet.data
+        has_wifi = form.has_wifi.data
+        can_take_calls = form.can_take_calls.data
         seats = form.seats.data
         coffee_price = form.coffee_price.data
         
-        cafe_suggestion = SuggestCafe(name=name, description=description, map_url=map_url, img_url=img_url, district=district, has_sockets=has_sockets, has_toilet=has_toilet, has_wifi=has_wifi, can_take_calls=can_take_calls, seats=seats, coffee_price=coffee_price, suggestion_author=current_user.id)
+        cafe_suggestion = SuggestCafe(name=name, description=description, map_url=map_url, img_url=img_url, location=location, has_sockets=has_sockets, has_toilet=has_toilet, has_wifi=has_wifi, can_take_calls=can_take_calls, seats=seats, coffee_price=coffee_price, suggestion_author=current_user.id)
         
         db.session.add(cafe_suggestion)
         db.session.commit()
@@ -220,17 +242,24 @@ def suggest_cafe():
     flash_messages = get_flashed_messages()
     return render_template('suggest_cafe_page.html', form=form, flash_messages=flash_messages)
 
-# Add new cafe page
+# Select cafe suggestion to add page
 
 @app.route('/add_cafe', methods=['GET', 'POST'])
 @login_required
 @admin_required
-def add_cafe():
-    form = SuggestCafeForm()
+def choose_cafe():
     cafes = SuggestCafe.query.all()
-    return render_template('add_cafe_page.html', form=form, cafes=cafes)
+    form = PreviewCafeForm()
+    form.cafe_pick.choices = [(cafe.id, cafe.name) for cafe in cafes]
+    
+    if form.validate_on_submit():
+        if 'submit' in request.form:
+            return redirect(url_for('preview_cafe', cafe_id=form.cafe_pick.data))    
+    
+    return render_template('choose_cafe_page.html', form=form)
 
-# Preview cafe page
+
+# Preview cafe suggestion page
 
 @app.route('/preview_cafe/<int:cafe_id>', methods=['GET', 'POST'])
 @login_required
@@ -238,6 +267,48 @@ def add_cafe():
 def preview_cafe(cafe_id):
     cafe = SuggestCafe.query.get(cafe_id)
     return render_template('preview_cafe_page.html', cafe=cafe)
+
+
+# Delete cafe suggestion
+
+@app.route('/delete_cafe/<int:cafe_id>')
+@login_required
+@admin_required
+def delete_cafe_suggestion(cafe_id):
+    cafe = SuggestCafe.query.get(cafe_id)
+    db.session.delete(cafe)
+    db.session.commit()
+    return redirect(url_for('home'))
+
+
+# Add cafe suggestion to home page
+
+@app.route('/move_cafe/<int:cafe_id>', methods=['POST'])
+@login_required
+@admin_required
+def add_cafe_suggestion(cafe_id):
+    suggest_cafe = SuggestCafe.query.get(cafe_id)
+
+    new_cafe = Cafe(
+        name=suggest_cafe.name,
+        description=suggest_cafe.description,
+        map_url=suggest_cafe.map_url,
+        img_url=suggest_cafe.img_url,
+        location=suggest_cafe.location,
+        has_sockets=suggest_cafe.has_sockets,
+        has_toilet=suggest_cafe.has_toilet,
+        has_wifi=suggest_cafe.has_wifi,
+        can_take_calls=suggest_cafe.can_take_calls,
+        seats=suggest_cafe.seats,
+        coffee_price=suggest_cafe.coffee_price
+    )
+    
+    db.session.add(new_cafe)
+    db.session.delete(suggest_cafe)
+    db.session.commit()
+
+    return redirect(url_for('home'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

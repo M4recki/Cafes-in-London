@@ -3,9 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
 from os import environ
-from urllib.parse import quote as url_quote
-from flask_login import LoginManager
-import psycopg2
 from flask_gravatar import Gravatar
 
 # App

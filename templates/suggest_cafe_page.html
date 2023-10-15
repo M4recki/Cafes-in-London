@@ -64,15 +64,16 @@
                       action="{{ url_for('suggest_cafe') }}"
                       method="post"
                       novalidate>
+                      {{ form.csrf_token }} {{ form.hidden_tag() }}
                       <div class="form-outline mb-4">
                         <label class="form-label" for="cafeName"
                           >Cafe Name</label
                         >
-                        {{ form.cafe_name(class="form-control form-control-lg",
-                        id="cafe_name") }} {% if form.cafe_name.errors %}
+                        {{ form.name(class="form-control form-control-lg",
+                        id="name") }} {% if form.name.errors %}
                         <div class="fluid-container py-2">
                           <ul class="alert alert-danger px-2">
-                            {% for error in form.cafe_name.errors %}
+                            {% for error in form.name.errors %}
                             <label for="error-message">{{ error }}</label>
                             {% endfor %}
                           </ul>
@@ -93,8 +94,9 @@
                         <label class="form-label" for="description"
                           >Description</label
                         >
-                        {{ form.description(class="form-control form-control-lg",
-                        id="description", rows="10") }} {% if form.description.errors %}
+                        {{ form.description(class="form-control
+                        form-control-lg", id="description", rows="10") }} {% if
+                        form.description.errors %}
                         <div class="fluid-container py-2">
                           <ul class="alert alert-danger px-2">
                             {% for error in form.description.errors %}
@@ -138,14 +140,14 @@
                       </div>
 
                       <div class="form-outline mb-4">
-                        <label class="form-label" for="cafeDistrict"
+                        <label class="form-label" for="cafeLocation"
                           >District</label
                         >
-                        {{ form.district(class="form-control form-control-lg",
-                        id="district") }} {% if form.district.errors %}
+                        {{ form.location(class="form-control form-control-lg d-flex",
+                        id="location") }} {% if form.location.errors %}
                         <div class="fluid-container py-2">
                           <ul class="alert alert-danger px-2">
-                            {% for error in form.district.errors %}
+                            {% for error in form.location.errors %}
                             <label for="error-message">{{ error }}</label>
                             {% endfor %}
                           </ul>
@@ -154,41 +156,39 @@
                       </div>
 
                       <div class="form-check d-flex mb-3">
-                        {{ form.sockets_available(class="form-check-input",
-                        id="sockets_available") }}
+                        {{ form.has_sockets(class="form-check-input",
+                        id="has_sockets") }}
                         <label class="form-check-label mx-2" for="socketsCheck">
                           Sockets Available
                         </label>
                       </div>
 
                       <div class="form-check d-flex mb-3">
-                        {{ form.toilet_available(class="form-check-input",
-                        id="toilet_available") }}
+                        {{ form.has_toilet(class="form-check-input",
+                        id="has_toilet") }}
                         <label class="form-check-label mx-2" for="toiletCheck">
                           Toilet Available
                         </label>
                       </div>
 
                       <div class="form-check d-flex mb-3">
-                        {{ form.wifi_available(class="form-check-input",
-                        id="wifi_available") }}
+                        {{ form.has_wifi(class="form-check-input",
+                        id="has_wifi") }}
                         <label class="form-check-label mx-2" for="wifiCheck">
                           Wi-Fi Available
                         </label>
                       </div>
 
                       <div class="form-check d-flex mb-3">
-                        {{ form.take_calls_available(class="form-check-input",
-                        id="take_calls_available") }}
+                        {{ form.can_take_calls(class="form-check-input",
+                        id="can_take_calls") }}
                         <label class="form-check-label mx-2" for="callsCheck">
                           Take Calls Available
                         </label>
                       </div>
 
                       <div class="form-outline mb-4">
-                        <label class="form-label" for="seats">
-                          Seats
-                        </label>
+                        <label class="form-label" for="seats"> Seats </label>
                         {{ form.seats(class="form-control form-control-lg",
                         id="seats") }} {% if form.seats.errors %}
                         <div class="fluid-container py-2">

@@ -1,10 +1,5 @@
 from flask_login import UserMixin
-from app import app, db, gravatar
-from os import environ
-from flask_sqlalchemy import SQLAlchemy
-from flask import Flask, flash
-from flask_gravatar import Gravatar
-
+from app import app, db
 
 # User table
 

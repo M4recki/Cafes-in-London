@@ -26,7 +26,9 @@
 
     <!-- Google fonts -->
 
-    <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,regular,italic,700,700italic,900,900italic" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Merriweather:300,300italic,regular,italic,700,700italic,900,900italic"
+      rel="stylesheet" />
 
     <!-- CSS -->
 
@@ -38,14 +40,13 @@
   </head>
 
   <body>
-    
     <!-- Navigation bar -->
 
     {% include "nav_bar.html" %}
 
     <!-- Header -->
 
-    <section class="home-page">
+    <section class="cafe-details">
       <header class="text-sm-start py-5">
         <div class="container">
           <div class="row justify-content-center">
@@ -53,110 +54,210 @@
               <div
                 class="d-flex justify-content-center align-items-center d-sm-flex p-3">
                 <hr />
-                <h1 class="text-lead text-center">
-                  THE BEST CAFES IN LONDON <br />
-                  YOU NEED TO VISIT
-                </h1>
+                <h1 class="text-lead text-center py-5">{{ cafe.name }}</h1>
                 <hr />
               </div>
-              <p class="text-center">11/09/2023</p>
               <div class="container d-flex justify-content-center p-3">
                 <img
-                  src="/static/img/cafe.jpg"
+                  src="{{ cafe.img_url }}"
                   class="rounded img-fluid w-100"
                   alt="Cafe image" />
               </div>
-              <em>
-                <p class="text-center px-2">
-                  Peggy Porschen, Belgravia and Chelsea. Image: Londonist
-                </p>
-              </em>
+            </div>
+
+            <!-- Cafe details -->
+
+            <div
+              class="col-9 btn-group btn-group-justified btn-group-vertical align-items-center justify-content-between lead py-5"
+              role="group"
+              aria-label="Large button group">
+              <ul class="nav nav-pills" id="cafeTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link active tab-btn"
+                    id="description-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#description"
+                    type="button"
+                    role="tab"
+                    aria-controls="description"
+                    aria-selected="true">
+                    Description
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link tab-btn info-btn"
+                    id="info-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#info"
+                    type="button"
+                    role="tab"
+                    aria-controls="info"
+                    aria-selected="false">
+                    Info
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link tab-btn"
+                    id="location-tab"
+                    data-bs-toggle="tab"
+                    data-bs-target="#location"
+                    type="button"
+                    role="tab"
+                    aria-controls="location"
+                    aria-selected="false">
+                    Location
+                  </button>
+                </li>
+              </ul>
+              <div class="tab-content" id="cafeTabContent">
+                <div
+                  class="tab-pane fade show active py-5"
+                  id="description"
+                  role="tabpanel"
+                  aria-labelledby="description-tab">
+                  <p class="lead lh-lg">{{ cafe.description }}</p>
+                </div>
+                <div
+                  class="tab-pane fade show-active py-5"
+                  id="info"
+                  role="tabpanel"
+                  aria-labelledby="info-tab">
+                  <div class="card">
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                          <i class="bi bi-badge-ar-fill px-3"></i>Cafe name: {{
+                          cafe.name }}
+                        </li>
+                        <li class="list-group-item">
+                          <i class="bi bi-lightning-charge-fill px-3"></i>Has
+                          sockets: {{ "Yes" if cafe.has_sockets else "No" }}
+                        </li>
+                        <li class="list-group-item">
+                          <i class="bi bi-badge-wc-fill px-3"></i>Has toilet: {{
+                          "Yes" if cafe.has_toilet else "No" }}
+                        </li>
+                        <li class="list-group-item">
+                          <i class="bi bi-wifi px-3"></i>Has WiFi: {{ "Yes" if
+                          cafe.has_wifi else "No" }}
+                        </li>
+                        <li class="list-group-item">
+                          <i class="bi bi-telephone-fill px-3"></i>Can take
+                          calls: {{ "Yes" if cafe.can_take_calls else "No" }}
+                        </li>
+                        <li class="list-group-item">
+                          <i class="bi bi-person-fill px-3"></i>Available seats:
+                          {{ cafe.seats }}
+                        </li>
+                        <li class="list-group-item">
+                          <i class="bi bi-currency-pound px-3"></i>Coffee price:
+                          {{ cafe.coffee_price }}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane fade show-active py-5"
+                  id="location"
+                  role="tabpanel"
+                  aria-labelledby="location-tab">
+                  <div class="card">
+                    <div class="card-body">
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                          <i class="bi bi-pin-map-fill px-3"></i>Cafe location:
+                          {{ cafe.location }}
+                        </li>
+                        <li class="list-group-item">
+                          <i class="bi bi-map-fill px-3"></i>Map Url:
+                          <a href="{{ cafe.map_url }}" target="_blank"
+                            >{{ cafe.map_url }}</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Admin panel -->
+
+                <section class="admin-panel">
+                  <div class="d-flex justify-content-center">
+                    <a href="{{ url_for('suggest_cafe', cafe_id=cafe.id) }}">
+                      <button
+                        class="btn register-card-body btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2">
+                        Edit
+                      </button>
+                    </a>
+                    <a href="{{ url_for('home') }}">
+                      <button
+                        class="btn btn-primary btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2">
+                        Defer Decision
+                      </button>
+                    </a>
+                    <button
+                      class="btn btn-success btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2"
+                      onclick="document.getElementById('add-confirmation').showModal()">
+                      Add this Cafe
+                    </button>
+                    <dialog id="add-confirmation">
+                      Are you sure you want to add this Cafe to existing Cafes?
+                      <div
+                        class="button-container my-5 d-flex justify-content-center">
+                        <button
+                          class="btn btn-danger me-3 zoom-on-hover text-dark"
+                          id="cancel-button-add"
+                          onclick="AddConfirmationClose()">
+                          Cancel
+                        </button>
+                        <a
+                          href="{{ url_for('add_cafe_suggestion', cafe_id=cafe.id) }}">
+                          <button
+                            class="btn btn-success zoom-on-hover text-dark">
+                            Add this Cafe
+                          </button>
+                        </a>
+                      </div>
+                    </dialog>
+                    <button
+                      class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body zoom-on-hover text-dark mx-2"
+                      onclick="document.getElementById('delete-confirmation').showModal()">
+                      Delete this Cafe
+                    </button>
+                    <dialog id="delete-confirmation">
+                      Are you sure you want to delete this Cafe?
+                      <div
+                        class="button-container my-5 d-flex justify-content-center">
+                        <button
+                          class="btn btn-success me-3 zoom-on-hover text-dark"
+                          id="cancel-button-delete"
+                          onclick="DeleteConfirmationClose()">
+                          Cancel
+                        </button>
+                        <a
+                          href="{{ url_for('delete_cafe_suggestion', cafe_id=cafe.id) }}"
+                          ><button
+                            class="btn btn-danger zoom-on-hover text-dark">
+                            Delete this Cafe
+                          </button></a
+                        >
+                      </div>
+                    </dialog>
+                  </div>
+                </section>
+              </div>
             </div>
           </div>
         </div>
       </header>
-
-      <!-- Main content -->
-
-      <main>
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-9">
-              <p class="lead lh-lg">
-                Like us, you probably enjoy a chic daytime location in the city.
-                These opulent coffee havens are frequented by caffeine addicts,
-                Instagram addicts, and Londoners for all kinds of get-togethers,
-                whether they're catching up with pals or just grabbing a
-                gorgeous latte. Whatever your motivation, we're highlighting the
-                loveliest cafes in London so you can enjoy your pastries against
-                a beautiful setting.
-              </p>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-9 py-5">
-              <div class="card mb-3 my-5 mx-auto d-block">
-                <a href="#">
-                  <img
-                    src="https://atlondonbridge.com/wp-content/uploads/2019/02/Pano_9758_9761-Edit-190918_LTS_Science_Gallery-Medium-Crop-V2.jpg"
-                    alt="Cafe image"
-                    class="img-fluid w-100 rounded"/>
-                </a>
-                <div class="card-body text-center cafe-name card-header">
-                  <hr />
-                  <a href="#" class="text-decoration-none text-dark">
-                    <h2 class="card-title zoom-on-hover">
-                      Science Gallery London
-                    </h2>
-                  </a>
-                  <hr />
-                  <p class="card-text text-start text-dark lh-lg p-5">
-                    Located inside the Science Gallery London museum, the
-                    Science Gallery London Cafe offers a distinctive dining
-                    experience. In addition to a choice of delectable vegetarian
-                    and vegan dishes, the café also serves a variety of sweet
-                    desserts. While seeing the museum, you can unwind and eat in
-                    the cafe.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-9 py-5">
-              <div class="card mb-3 my-5 mx-auto d-block">
-                <a href="#">
-                  <img
-                    src="https://images.squarespace-cdn.com/content/v1/5734f3ff4d088e2c5b08fe13/1555848382269-9F13FE1WQDNUUDQOAOXF/ke17ZwdGBToddI8pDm48kAeyi0pcxjZfLZiASAF9yCBZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZUJFbgE-7XRK3dMEBRBhUpzV8NE8s7067ZLWyi1jRvJklJnlBFEUyq1al9AqaQ7pI4DcRJq_Lf3JCtFMXgpPQyk/copeland-park-bar-peckham"
-                    alt="Cafe image"
-                    class="img-fluid w-100 rounded"
-                /></a>
-                <div class="card-body text-center cafe-name card-header">
-                  <hr />
-                  <a href="#" class="text-decoration-none text-dark">
-                    <h2 class="card-title zoom-on-hover">
-                      Social - Copeland Road
-                    </h2>
-                  </a>
-                  <hr />
-                  <p class="card-text text-start text-dark lh-lg p-5">
-                    In the UK, there is a well-known coffee establishment called
-                    Copeland Road Café. It has a nice ambiance and serves a
-                    selection of pastries and light snacks in addition to a wide
-                    range of hot and cold beverages. The cafe is recognized for
-                    its warm atmosphere and helpful employees, making it a
-                    fantastic location to unwind, catch up with friends, or
-                    work.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
     </section>
 
     <!-- Footer -->
 
     {% include "footer.html" %}
-    
   </body>
 </html>

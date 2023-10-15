@@ -1,22 +1,19 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SelectField, RadioField, ValidationError, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SelectField,ValidationError, SubmitField, TextAreaField
 from wtforms.validators import DataRequired, Email, URL
-from app import app, db
-from models import User, Cafe, Comment
-from wtforms import TextAreaField
 
 # Suggest cafe form
 
 class SuggestCafeForm(FlaskForm):
-    cafe_name = StringField('Cafe Name', validators=[DataRequired()])
+    name = StringField('Cafe Name', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
     map_url = StringField('Cafe Map URL', validators=[DataRequired(), URL()]) 
     img_url = StringField('Cafe Image URL', validators=[DataRequired(), URL()])
-    district = StringField('District', validators=[DataRequired()])
-    sockets_available = BooleanField('Sockets available')
-    toilet_available = BooleanField('Toilet available')
-    wifi_available = BooleanField('WiFi available')
-    take_calls_available = BooleanField('Take calls available')
+    location = StringField('District', validators=[DataRequired()])
+    has_sockets = BooleanField('Sockets available')
+    has_toilet = BooleanField('Toilet available')
+    has_wifi = BooleanField('WiFi available')
+    can_take_calls = BooleanField('Take calls available')
     seats = StringField('Seats', validators=[DataRequired()])
     coffee_price = StringField('Coffee price', validators=[DataRequired()])
     submit = SubmitField('Submit')
@@ -57,3 +54,8 @@ class ContactForm(FlaskForm):
 class CommentForm(FlaskForm):
     comment = TextAreaField('Comment', validators=[DataRequired()])
     submit = SubmitField('Submit')
+    
+# Preview cafe form
+class PreviewCafeForm(FlaskForm):
+    cafe_pick = SelectField('Choose a cafe', validators=[DataRequired()], coerce=int)
+    submit = SubmitField('Preview')

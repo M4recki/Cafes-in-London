@@ -54,9 +54,7 @@
               <div
                 class="d-flex justify-content-center align-items-center d-sm-flex p-3">
                 <hr />
-                <h1 class="text-lead text-center py-5">
-                  {{ cafe.name }}
-                </h1>
+                <h1 class="text-lead text-center py-5">{{ cafe.name }}</h1>
                 <hr />
               </div>
               <div class="container d-flex justify-content-center p-3">
@@ -120,9 +118,7 @@
                   id="description"
                   role="tabpanel"
                   aria-labelledby="description-tab">
-                  <p class="lead lh-lg">
-                    {{ cafe.description }}
-                  </p>
+                  <p class="lead lh-lg">{{ cafe.description }}</p>
                 </div>
                 <div
                   class="tab-pane fade show-active py-5"
@@ -133,19 +129,20 @@
                     <div class="card-body">
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item">
-                          <i class="bi bi-badge-ar-fill px-3"></i>Cafe name:
-                          {{ cafe.name }}
+                          <i class="bi bi-badge-ar-fill px-3"></i>Cafe name: {{
+                          cafe.name }}
                         </li>
                         <li class="list-group-item">
                           <i class="bi bi-lightning-charge-fill px-3"></i>Has
                           sockets: {{ "Yes" if cafe.has_sockets else "No" }}
                         </li>
                         <li class="list-group-item">
-                          <i class="bi bi-badge-wc-fill px-3"></i>Has toilet:
-                          {{ "Yes" if cafe.has_toilet else "No" }}
+                          <i class="bi bi-badge-wc-fill px-3"></i>Has toilet: {{
+                          "Yes" if cafe.has_toilet else "No" }}
                         </li>
                         <li class="list-group-item">
-                          <i class="bi bi-wifi px-3"></i>Has WiFi: {{ "Yes" if cafe.has_wifi else "No" }}
+                          <i class="bi bi-wifi px-3"></i>Has WiFi: {{ "Yes" if
+                          cafe.has_wifi else "No" }}
                         </li>
                         <li class="list-group-item">
                           <i class="bi bi-telephone-fill px-3"></i>Can take
@@ -201,53 +198,54 @@
             <h2 class="text-center mb-5">Comments:</h2>
             <div class="row">
               <div class="mb-4">
+                <!-- Comment form -->
 
-              <!-- Comment form -->
-
-              <form action="{{ url_for('cafe_details', cafe_id=cafe.id) }}" method="post" novalidate>
-                {{ form.csrf_token }} {{ form.hidden_tag() }}
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="name">Your comment:</label>
-                  {{ form.comment(class="form-control form-control-lg my-2",
-                  id="comment", rows="5") }} {% if form.comment.errors %}
-                  <div class="fluid-container py-2">
-                    <ul class="alert alert-danger px-2">
-                      {% for error in form.comment.errors %}
-                      <label for="error-message">{{ error }}</label>
-                      {% endfor %}
-                    </ul>
+                <form
+                  action="{{ url_for('cafe_details', cafe_id=cafe.id) }}"
+                  method="post"
+                  novalidate>
+                  {{ form.csrf_token }} {{ form.hidden_tag() }}
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="name">Your comment:</label>
+                    {{ form.comment(class="form-control form-control-lg my-2",
+                    id="comment", rows="5") }} {% if form.comment.errors %}
+                    <div class="fluid-container py-2">
+                      <ul class="alert alert-danger px-2">
+                        {% for error in form.comment.errors %}
+                        <label for="error-message">{{ error }}</label>
+                        {% endfor %}
+                      </ul>
+                    </div>
+                    {% endif %}
                   </div>
-                  {% endif %}
-                </div>
 
-                <div class="d-flex justify-content-center">
-                  {{ form.submit(class="btn register-btn btn-block btn-lg
-                  gradient-custom-4 text-body zoom-on-hover mb-5") }}
-                </div>
+                  <div class="d-flex justify-content-center">
+                    {{ form.submit(class="btn register-btn btn-block btn-lg
+                    gradient-custom-4 text-body zoom-on-hover mb-5") }}
+                  </div>
                 </form>
 
-              <!-- Existing comments -->
+                <!-- Existing comments -->
 
-              {% if cafe.comments %}
-                {% for comment in cafe.comments %}
-                  <div class="card mb-5">
-                    <div class="card-body">
-                      <div class="d-flex align-items-center mb-3">
-                        <img
-                          src="{{ comment.comment_author_name.email | gravatar}}"
-                          alt="User Avatar"
-                          class="rounded-circle me-2 mb-3 cafe-logo"
-                          />
-                        <p class="card-title mx-2 mb-2 lead bold">{{ comment.comment_author_name.name }}</p>
-                      </div>
-                      <p class="card-text">
-                        {{ comment.comment }}
+                {% if cafe.comments %} {% for comment in cafe.comments %}
+                <div class="card mb-5">
+                  <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                      <img
+                        src="{{ comment.comment_author_name.email | gravatar}}"
+                        alt="User Avatar"
+                        class="rounded-circle me-2 mb-3 cafe-logo" />
+                      <p class="card-title mx-2 mb-2 lead bold">
+                        {{ comment.comment_author_name.name }}
                       </p>
                     </div>
+                    <p class="card-text">{{ comment.comment }}</p>
                   </div>
-                  {% endfor %}
-                {% else %}
-                  <h3 class="lh-lg text-center text-secondary py-5">No comments found. Add your first one!</h3>
+                </div>
+                {% endfor %} {% else %}
+                <h3 class="lh-lg text-center text-secondary py-5">
+                  No comments found. Add your first one!
+                </h3>
                 {% endif %}
               </div>
             </div>
