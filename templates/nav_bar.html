@@ -26,7 +26,7 @@
         class="collapse navbar-collapse justify-content-center nav-items-center"
         id="navbarNav">
         <ul class="navbar-nav mx-auto">
-          {% if current_user.is_authenticated %}
+          {% if current_user.is_authenticated%}
 
           <li class="nav-item ms-auto">
             <p class="nav-link text-light" id="greetings">
@@ -62,7 +62,9 @@
               >Logout</a
             >
           </li>
-          
+
+          {% if current_user.id != 1 %}
+
           <li class="nav-item ms-auto">
             <a
               class="nav-link text-light hover-text-navbar"
@@ -72,7 +74,7 @@
             >
           </li>
 
-          {% else %}
+          {% endif %} {% else %}
 
           <li class="nav-item ms-auto">
             <a

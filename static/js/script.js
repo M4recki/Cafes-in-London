@@ -7,7 +7,7 @@ function AddConfirmationClose() {
   const deleteConfirmation = dialog_add_cafe.close();
 }
 
-// Delete cafe
+// Delete cafe/comment
 
 document.getElementById("cancel-button-2").addEventListener("click", DeleteConfirmationClose)
 

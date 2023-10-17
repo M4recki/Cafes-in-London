@@ -50,8 +50,9 @@ class SuggestCafe(db.Model):
     seats = db.Column(db.String(10), nullable=False)
     coffee_price = db.Column(db.String(10), nullable=False)
     suggestion_author = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    suggestion_author_name = db.relationship("User", backref=db.backref("suggest_cafe", lazy=True))
-    
+    suggestion_author_name = db.relationship(
+        "User", backref=db.backref("suggest_cafe", lazy=True)
+    )
 
 
 # Comment table
@@ -63,9 +64,11 @@ class Comment(db.Model):
     comment = db.Column(db.Text, nullable=False)
     cafe_id = db.Column(db.Integer, db.ForeignKey("cafe.id"), nullable=False)
     comment_author = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    comment_author_name = db.relationship("User", backref=db.backref("comments", lazy=True))
-    
-    
+    comment_author_name = db.relationship(
+        "User", backref=db.backref("comments", lazy=True)
+    )
+
+
 with app.app_context():
     db.create_all()
     db.session.commit()
