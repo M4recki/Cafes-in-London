@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from app import app, db
+from project.extensions import db
 
 # User table
 
@@ -67,8 +67,3 @@ class Comment(db.Model):
     comment_author_name = db.relationship(
         "User", backref=db.backref("comments", lazy=True)
     )
-
-
-with app.app_context():
-    db.create_all()
-    db.session.commit()

@@ -1,4 +1,5 @@
 instance/
 __pycache__/
 .vscode/
+.pytest_cache/
 cafes_conn.session.sql

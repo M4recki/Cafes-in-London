@@ -1,6 +1,6 @@
-from app import app, db, gravatar
-from models import User, Cafe, SuggestCafe, Comment
-from forms import (
+from project.extensions import db
+from project.models import User, Cafe, SuggestCafe, Comment
+from project.forms import (
     RegisterForm,
     LoginForm,
     ContactForm,
@@ -16,6 +16,7 @@ from flask import (
     get_flashed_messages,
     request,
     abort,
+    Blueprint,
 )
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import (
@@ -26,6 +27,7 @@ from flask_login import (
     current_user,
 )
 from sqlalchemy import func
+from flask_gravatar import Gravatar
 from os import environ
 from datetime import datetime
 from email.message import EmailMessage
@@ -34,16 +36,7 @@ import smtplib
 from functools import wraps
 
 
-# Login manager
-
-
-login_manager = LoginManager(app)
-login_manager.init_app(app)
-
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+main = Blueprint("main", __name__)
 
 
 # Admin decorator
@@ -62,7 +55,7 @@ def admin_required(f):
 # Current year in footer
 
 
-@app.context_processor
+@main.context_processor
 def current_year():
     current_year = datetime.now().year
     return {"current_year": current_year}
@@ -71,7 +64,7 @@ def current_year():
 # Home page
 
 
-@app.route("/")
+@main.route("/")
 def home():
     cafes = Cafe.query.all()
     return render_template("main_page.html", cafes=cafes)
@@ -80,8 +73,9 @@ def home():
 # Cafe details page
 
 
-@app.route("/cafe/<int:cafe_id>", methods=["GET", "POST"])
+@main.route("/cafe/<int:cafe_id>", methods=["GET", "POST"])
 def cafe_details(cafe_id):
+    from project import gravatar
     cafe = Cafe.query.get(cafe_id)
     comments = Comment.query.filter_by(cafe_id=cafe_id).all()
     form = CommentForm()
@@ -89,14 +83,14 @@ def cafe_details(cafe_id):
     if form.validate_on_submit():
         if current_user.is_anonymous:
             flash("You must be logged in to comment.")
-            return redirect(url_for("login"))
+            return redirect(url_for("main.login"))
         comment = Comment(
             comment=form.comment.data, cafe_id=cafe_id, comment_author=current_user.id
         )
 
         db.session.add(comment)
         db.session.commit()
-        return redirect(url_for("cafe_details", cafe_id=cafe_id))
+        return redirect(url_for("main.cafe_details", cafe_id=cafe_id))
 
     return render_template(
         "cafe_details_page.html",
@@ -110,20 +104,20 @@ def cafe_details(cafe_id):
 # Delete comment
 
 
-@app.route("/delete_comment/<int:comment_id>")
+@main.route("/delete_comment/<int:comment_id>")
 @login_required
 def delete_comment(comment_id):
     comment = Comment.query.get(comment_id)
     cafe_id = comment.cafe_id
     db.session.delete(comment)
     db.session.commit()
-    return redirect(url_for("cafe_details", cafe_id=cafe_id))
+    return redirect(url_for("main.cafe_details", cafe_id=cafe_id))
 
 
 # Edit comment
 
 
-@app.route("/edit_comment/<int:comment_id>", methods=["GET", "POST"])
+@main.route("/edit_comment/<int:comment_id>", methods=["GET", "POST"])
 @login_required
 def edit_comment(comment_id):
     comment = Comment.query.get(comment_id)
@@ -138,7 +132,7 @@ def edit_comment(comment_id):
         comment.comment = form.comment.data
         db.session.commit()
 
-        return redirect(url_for("cafe_details", cafe_id=cafe_id))
+        return redirect(url_for("main.cafe_details", cafe_id=cafe_id))
     
     return render_template(
         "cafe_details_page.html", form=form, cafe=cafe
@@ -148,20 +142,20 @@ def edit_comment(comment_id):
 # Delete cafe from main page
 
 
-@app.route("/delete_cafe/<int:cafe_id>")
+@main.route("/delete_cafe/<int:cafe_id>")
 @login_required
 @admin_required
 def delete_cafe_home(cafe_id):
     cafe = Cafe.query.get(cafe_id)
     db.session.delete(cafe)
     db.session.commit()
-    return redirect(url_for("home"))
+    return redirect(url_for("main.home"))
 
 
 # Edit cafe from main page
 
 
-@app.route("/edit_cafe/<int:cafe_id>", methods=["GET", "POST"])
+@main.route("/edit_cafe/<int:cafe_id>", methods=["GET", "POST"])
 @login_required
 @admin_required
 def edit_cafe(cafe_id):
@@ -194,7 +188,7 @@ def edit_cafe(cafe_id):
 
         db.session.commit()
 
-        return redirect(url_for("home"))
+        return redirect(url_for("main.home"))
 
     flash_messages = get_flashed_messages()
     return render_template(
@@ -205,7 +199,7 @@ def edit_cafe(cafe_id):
 # Register page
 
 
-@app.route("/register", methods=["GET", "POST"])
+@main.route("/register", methods=["GET", "POST"])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
@@ -216,7 +210,7 @@ def register():
         user = User.query.filter_by(email=email).first()
         if user:
             flash("Email already exists. Please login or use a different email.")
-            return redirect(url_for("register"))
+            return redirect(url_for("main.register"))
 
         else:
             hash_and_salted_password = generate_password_hash(
@@ -226,7 +220,7 @@ def register():
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user)
-            return redirect(url_for("home"))
+            return redirect(url_for("main.home"))
 
     flash_messages = get_flashed_messages()
     return render_template(
@@ -237,7 +231,7 @@ def register():
 # Login page
 
 
-@app.route("/login", methods=["GET", "POST"])
+@main.route("/login", methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -247,15 +241,15 @@ def login():
         user = User.query.filter_by(email=email).first()
         if not user:
             flash("That email does not exist, please try again.")
-            return redirect(url_for("login"))
+            return redirect(url_for("main.login"))
 
         elif not check_password_hash(user.password, password):
             flash("Password incorrect, please try again.")
-            return redirect(url_for("login"))
+            return redirect(url_for("main.login"))
 
         else:
             login_user(user)
-            return redirect(url_for("home"))
+            return redirect(url_for("main.home"))
 
     flash_messages = get_flashed_messages()
     return render_template("login_page.html", form=form, flash_messages=flash_messages)
@@ -264,11 +258,11 @@ def login():
 # Logout page
 
 
-@app.route("/logout", methods=["GET", "POST"])
+@main.route("/logout", methods=["GET", "POST"])
 @login_required
 def logout():
     logout_user()
-    return redirect(url_for("home"))
+    return redirect(url_for("main.home"))
 
 
 # Send email function
@@ -295,7 +289,7 @@ def send_email(email_address, subject, message):
 # Contact page
 
 
-@app.route("/contact", methods=["GET", "POST"])
+@main.route("/contact", methods=["GET", "POST"])
 def contact():
     form = ContactForm()
     if form.validate_on_submit():
@@ -306,7 +300,7 @@ def contact():
 
         send_email(email, subject, message)
 
-        return redirect(url_for("home"))
+        return redirect(url_for("main.home"))
 
     flash_messages = get_flashed_messages()
     return render_template(
@@ -317,7 +311,7 @@ def contact():
 # Suggest cafe page
 
 
-@app.route("/suggest", methods=["GET", "POST"])
+@main.route("/suggest", methods=["GET", "POST"])
 @login_required
 def suggest_cafe():
     form = CafeForm()
@@ -352,7 +346,7 @@ def suggest_cafe():
         db.session.add(cafe_suggestion)
         db.session.commit()
 
-        return redirect(url_for("home"))
+        return redirect(url_for("main.home"))
 
     flash_messages = get_flashed_messages()
     return render_template(
@@ -363,7 +357,7 @@ def suggest_cafe():
 # Select cafe suggestion to add page
 
 
-@app.route("/add_cafe", methods=["GET", "POST"])
+@main.route("/add_cafe", methods=["GET", "POST"])
 @login_required
 @admin_required
 def choose_cafe():
@@ -373,7 +367,7 @@ def choose_cafe():
 
     if form.validate_on_submit():
         if "submit" in request.form:
-            return redirect(url_for("preview_cafe", cafe_id=form.cafe_pick.data))
+            return redirect(url_for("main.preview_cafe", cafe_id=form.cafe_pick.data))
 
     return render_template("choose_cafe_page.html", form=form)
 
@@ -381,7 +375,7 @@ def choose_cafe():
 # Preview cafe suggestion page
 
 
-@app.route("/preview_cafe/<int:cafe_id>", methods=["GET", "POST"])
+@main.route("/preview_cafe/<int:cafe_id>", methods=["GET", "POST"])
 @login_required
 @admin_required
 def preview_cafe(cafe_id):
@@ -392,20 +386,20 @@ def preview_cafe(cafe_id):
 # Delete cafe suggestion
 
 
-@app.route("/delete_cafe/<int:cafe_id>")
+@main.route("/delete_cafe/<int:cafe_id>")
 @login_required
 @admin_required
 def delete_cafe_suggestion(cafe_id):
     cafe = SuggestCafe.query.get(cafe_id)
     db.session.delete(cafe)
     db.session.commit()
-    return redirect(url_for("home"))
+    return redirect(url_for("main.home"))
 
 
 # Add cafe suggestion to home page
 
 
-@app.route("/add_cafe/<int:cafe_id>", methods=["GET", "POST"])
+@main.route("/add_cafe/<int:cafe_id>", methods=["GET", "POST"])
 @login_required
 @admin_required
 def add_cafe_suggestion(cafe_id):
@@ -431,8 +425,4 @@ def add_cafe_suggestion(cafe_id):
     db.session.delete(suggest_cafe)
     db.session.commit()
 
-    return redirect(url_for("home"))
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+    return redirect(url_for("main.home"))

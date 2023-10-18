@@ -62,7 +62,7 @@
                     <!-- Choose cafe form -->
 
                     <form
-                      action="{{ url_for('choose_cafe') }}"
+                      action="{{ url_for('main.choose_cafe') }}"
                       method="post"
                       novalidate>
                       {{ form.csrf_token }} {{ form.hidden_tag() }}

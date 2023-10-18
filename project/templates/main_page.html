@@ -62,7 +62,7 @@
               </div>
               <p class="text-center">11/09/2023</p>
               <div class="container d-flex justify-content-center p-3">
-                <a href="{{ url_for('cafe_details', cafe_id=22) }}">
+                <a href="{{ url_for('main.cafe_details', cafe_id=22) }}">
                   <img
                     src="/static/img/cafe.jpg"
                     class="rounded img-fluid w-100"
@@ -100,7 +100,7 @@
           <div class="row justify-content-center">
             <div class="col-9 py-5">
               <div class="card mb-3 my-5 mx-auto d-block">
-                <a href="{{ url_for('cafe_details', cafe_id=cafe.id) }}">
+                <a href="{{ url_for('main.cafe_details', cafe_id=cafe.id) }}">
                   <img
                     src="{{ cafe.img_url }}"
                     alt="Cafe image"
@@ -109,7 +109,7 @@
                 <div class="card-body text-center cafe-name card-header">
                   <hr />
                   <a
-                    href="{{ url_for('cafe_details', cafe_id=cafe.id) }}"
+                    href="{{ url_for('main.cafe_details', cafe_id=cafe.id) }}"
                     class="text-decoration-none text-dark">
                     <h2 class="card-title zoom-on-hover">{{ cafe.name }}</h2>
                   </a>
@@ -125,7 +125,7 @@
               <section class="edit-or-delete">
                 <div class="d-flex justify-content-center pt-3">
                   {% if current_user.id == 1 %}
-                  <a href="{{ url_for('edit_cafe', cafe_id=cafe.id) }}">
+                  <a href="{{ url_for('main.edit_cafe', cafe_id=cafe.id) }}">
                     <button
                       class="btn register-card-body btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2">
                       Edit
@@ -147,7 +147,7 @@
                         Cancel
                       </button>
                       <a
-                        href="{{ url_for('delete_cafe_home', cafe_id=cafe.id) }}"
+                        href="{{ url_for('main.delete_cafe_home', cafe_id=cafe.id) }}"
                         ><button class="btn btn-danger zoom-on-hover text-dark">
                           Delete this Cafe
                         </button></a

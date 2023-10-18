@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-bg-color py-3">
     <div class="container-fluid align-items-center">
       <a
-        href="{{ url_for('home') }}"
+        href="{{ url_for('main.home') }}"
         class="d-flex justify-content-center align-items-center text-decoration-none">
         <img
           src="/static/img/coffee.png"
@@ -39,7 +39,7 @@
             <a
               class="nav-link text-light hover-text-navbar"
               id="add-cafe"
-              href="{{ url_for('choose_cafe') }}"
+              href="{{ url_for('main.choose_cafe') }}"
               >Add a new cafe</a
             >
           </li>
@@ -49,7 +49,7 @@
             <a
               class="nav-link text-light hover-text-navbar"
               id="suggest"
-              href="{{ url_for('suggest_cafe') }}"
+              href="{{ url_for('main.suggest_cafe') }}"
               >Suggest cafe</a
             >
           </li>
@@ -58,7 +58,7 @@
             <a
               class="nav-link text-light hover-text-navbar"
               id="logout"
-              href="{{ url_for('logout') }}"
+              href="{{ url_for('main.logout') }}"
               >Logout</a
             >
           </li>
@@ -69,7 +69,7 @@
             <a
               class="nav-link text-light hover-text-navbar"
               id="contact"
-              href="{{ url_for('contact') }}"
+              href="{{ url_for('main.contact') }}"
               >Contact</a
             >
           </li>
@@ -80,7 +80,7 @@
             <a
               class="nav-link text-light hover-text-navbar"
               id="sign-up"
-              href="{{ url_for('register') }}"
+              href="{{ url_for('main.register') }}"
               >Sign up</a
             >
           </li>
@@ -88,7 +88,7 @@
             <a
               class="nav-link text-light hover-text-navbar"
               id="log-in"
-              href="{{ url_for('login') }}"
+              href="{{ url_for('main.login') }}"
               >Log in</a
             >
           </li>
@@ -96,7 +96,7 @@
             <a
               class="nav-link text-light hover-text-navbar"
               id="contact"
-              href="{{ url_for('contact') }}"
+              href="{{ url_for('main.contact') }}"
               >Contact</a
             >
           </li>
