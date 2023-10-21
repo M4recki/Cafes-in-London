@@ -1,8 +1,7 @@
 import pytest
 from project import create_app, db
 from project.models import User
-
-
+from flask import Response
 
 
 # Pytest fixture to create a app
@@ -11,7 +10,6 @@ from project.models import User
 @pytest.fixture()
 def app():
     app = create_app(database_uri="sqlite://")
-    
     with app.app_context():
         db.create_all() 
       

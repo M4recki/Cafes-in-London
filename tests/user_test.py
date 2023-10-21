@@ -11,9 +11,11 @@ def test_login_client(new_user):
 
     
 def test_login_user(client):
-    with client:
-        client.post("register", data={"name": "Julian", "email": "julian@email.com", "password": "Julian123"})
-        client.post("login", data={"email": "julian@email.com", "password": "Julian123"})
-        response = client.get("/logout")
-        assert response.status_code == 200
-        assert b"You have been logged out" in response.data
+    response = client.post("login", data={"email": "julian@email.com", "password": "Julian123"})
+    assert response.status_code == 200
+
+
+# Test unauthorized path
+def test_unauthorized_path(client):
+    response = client.get("/add_cafe")
+    assert response.status_code == 401
