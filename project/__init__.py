@@ -10,7 +10,7 @@ from os import environ
 # App
 
 
-def create_app(database_uri="postgresql://postgres:postgres@localhost:5432/cafes"):
+def create_app(database_uri=environ.get("Cafes_in_London_DB")):
     app = Flask(__name__)
     app.config["SECRET_KEY"] = environ.get("Secret_key_cafe")
 
