@@ -1,6 +1,6 @@
-# ToDo list
+# Cafes in London
 
-The ToDo application is a simple web application written in Python using the Flask framework. It allows users to create, edit and delete to-do tasks. The application also has user login and registration functionality.
+The user-friendly "Cafes in London" app lets you manage your cafes as well as your comments and recommendations for new cafes. You can also browse the best cafes in the city based on ratings, reviews, and location. Whether you are looking for a cozy spot to work, a place to meet friends, or a new coffee experience, this app will help you find it.
 
 ## Authors
 
