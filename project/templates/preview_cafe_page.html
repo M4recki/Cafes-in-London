@@ -189,18 +189,18 @@
                   <div class="d-flex justify-content-center">
                     <a href="{{ url_for('main.suggest_cafe', cafe_id=cafe.id) }}">
                       <button
-                        class="btn register-card-body btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2">
+                        class="btn register-card-body btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2 admin-btn">
                         Edit
                       </button>
                     </a>
                     <a href="{{ url_for('main.home') }}">
                       <button
-                        class="btn btn-primary btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2">
+                        class="btn btn-primary btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2 admin-btn">
                         Defer Decision
                       </button>
                     </a>
                     <button
-                      class="btn btn-success btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2"
+                      class="btn btn-success btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2 admin-btn"
                       onclick="document.getElementById('add-confirmation').showModal()">
                       Add this Cafe
                     </button>
@@ -224,7 +224,7 @@
                       </div>
                     </dialog>
                     <button
-                      class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body zoom-on-hover text-dark mx-2"
+                      class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body zoom-on-hover text-dark mx-2 admin-btn"
                       onclick="document.getElementById('delete-confirmation').showModal()">
                       Delete
                     </button>

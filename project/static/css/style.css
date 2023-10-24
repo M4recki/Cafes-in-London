@@ -12,6 +12,12 @@ hr {
     display:inline-block;
 }
 
+/* Text color in all buttons */
+
+.btn-text {
+    color: black;
+}
+
 /* Hover crucial words/items */
 
 .zoom-on-hover:hover {
@@ -70,6 +76,12 @@ hr {
 .nav-items-center {
     margin-left: -200px;
 }
+
+@media (max-width: 1130px) {
+    .main-name {
+      padding-right: 150px;
+    }
+  }
 
 /* Cafe name in card color */
 
@@ -169,4 +181,12 @@ input[type="checkbox"]:checked {
     #location {
         width: 100%;
     }
+}
+
+/* height of buttons in preview cafe for mobile devices */
+
+@media only screen and (min-height: 410px) and (max-height: 770px) {
+   .admin-btn {
+    height: 100px;
+   } 
 }
