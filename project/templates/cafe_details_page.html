@@ -198,7 +198,6 @@
             <h2 class="text-center mb-5">Comments:</h2>
             <div class="row">
               <div class="mb-4">
-                
                 <!-- Comment form -->
 
                 <form
@@ -207,7 +206,9 @@
                   novalidate>
                   {{ form.csrf_token }} {{ form.hidden_tag() }}
                   <div class="form-outline mb-4">
-                    <label class="form-label" for="comment">Your comment:</label>
+                    <label class="form-label" for="comment"
+                      >Your comment:</label
+                    >
                     {{ form.comment(class="form-control form-control-lg my-2",
                     id="comment", rows="5") }} {% if form.comment.errors %}
                     <div class="fluid-container py-2">
@@ -252,7 +253,7 @@
                         </button>
                       </a>
                       <button
-                        class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body zoom-on-hover text-dark mx-2"
+                        class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2"
                         onclick="document.getElementById('delete-confirmation').showModal()">
                         <label for="delete" class="btn-text">Delete</label>
                       </button>
@@ -264,13 +265,15 @@
                             class="btn btn-success me-3 zoom-on-hover text-dark"
                             id="cancel-button-delete"
                             onclick="DeleteConfirmationClose()">
-                            Cancel
+                            <label for="cancel" class="btn-text">Cancel</label>
                           </button>
                           <a
                             href="{{ url_for('main.delete_comment', comment_id=comment.id, cafe_id=cafe.id) }}"
                             ><button
-                              class="btn btn-text btn-danger zoom-on-hover text-dark">
-                              Delete this comment
+                              class="btn btn-text btn-danger zoom-on-hover">
+                              <label for="delete" class="btn-text"
+                                >Delete this comment</label
+                              >
                             </button></a
                           >
                         </div>

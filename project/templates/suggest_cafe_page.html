@@ -66,9 +66,7 @@
                       novalidate>
                       {{ form.csrf_token }} {{ form.hidden_tag() }}
                       <div class="form-outline mb-4">
-                        <label class="form-label" for="cafeName"
-                          >Cafe Name</label
-                        >
+                        <label class="form-label" for="name">Cafe Name</label>
                         {{ form.name(class="form-control form-control-lg",
                         id="name") }} {% if form.name.errors %}
                         <div class="fluid-container py-2">
@@ -108,11 +106,11 @@
                       </div>
 
                       <div class="form-outline mb-4">
-                        <label class="form-label" for="cafeMapUrl"
+                        <label class="form-label" for="map-url"
                           >Cafe Map Url</label
                         >
                         {{ form.map_url(class="form-control form-control-lg",
-                        id="map_url") }} {% if form.map_url.errors %}
+                        id="map-url") }} {% if form.map_url.errors %}
                         <div class="fluid-container py-2">
                           <ul class="alert alert-danger px-2">
                             {% for error in form.map_url.errors %}
@@ -124,11 +122,11 @@
                       </div>
 
                       <div class="form-outline mb-4">
-                        <label class="form-label" for="cafeImageUrl"
+                        <label class="form-label" for="img-url"
                           >Cafe Image Url</label
                         >
                         {{ form.img_url(class="form-control form-control-lg",
-                        id="img_url") }} {% if form.img_url.errors %}
+                        id="img-url") }} {% if form.img_url.errors %}
                         <div class="fluid-container py-2">
                           <ul class="alert alert-danger px-2">
                             {% for error in form.img_url.errors %}
@@ -140,7 +138,7 @@
                       </div>
 
                       <div class="form-outline mb-4">
-                        <label class="form-label" for="cafeLocation"
+                        <label class="form-label" for="location"
                           >District</label
                         >
                         {{ form.location(class="form-control form-control-lg
@@ -157,7 +155,7 @@
 
                       <div class="form-check d-flex mb-3">
                         {{ form.has_sockets(class="form-check-input",
-                        id="has_sockets") }}
+                        id="socketsCheck") }}
                         <label class="form-check-label mx-2" for="socketsCheck">
                           Sockets Available
                         </label>
@@ -165,7 +163,7 @@
 
                       <div class="form-check d-flex mb-3">
                         {{ form.has_toilet(class="form-check-input",
-                        id="has_toilet") }}
+                        id="toiletCheck") }}
                         <label class="form-check-label mx-2" for="toiletCheck">
                           Toilet Available
                         </label>
@@ -173,7 +171,7 @@
 
                       <div class="form-check d-flex mb-3">
                         {{ form.has_wifi(class="form-check-input",
-                        id="has_wifi") }}
+                        id="wifiCheck") }}
                         <label class="form-check-label mx-2" for="wifiCheck">
                           Wi-Fi Available
                         </label>
@@ -181,14 +179,14 @@
 
                       <div class="form-check d-flex mb-3">
                         {{ form.can_take_calls(class="form-check-input",
-                        id="can_take_calls") }}
+                        id="callsCheck") }}
                         <label class="form-check-label mx-2" for="callsCheck">
                           Take Calls Available
                         </label>
                       </div>
 
                       <div class="form-outline mb-4">
-                        <label class="form-label" for="seats"> Seats </label>
+                        <label class="form-label" for="seats">Seats</label>
                         {{ form.seats(class="form-control form-control-lg",
                         id="seats") }} {% if form.seats.errors %}
                         <div class="fluid-container py-2">
@@ -206,7 +204,7 @@
                           Coffee Price
                         </label>
                         {{ form.coffee_price(class="form-control
-                        form-control-lg", id="coffee_price") }} {% if
+                        form-control-lg", id="coffeePrice") }} {% if
                         form.coffee_price.errors %}
                         <div class="fluid-container py-2">
                           <ul class="alert alert-danger px-2">

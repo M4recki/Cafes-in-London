@@ -134,7 +134,7 @@
                   <button
                     class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body zoom-on-hover text-dark mx-2"
                     onclick="document.getElementById('delete-confirmation').showModal()">
-                    Delete
+                    <label for="delete" class="btn-text">Delete</label>
                   </button>
                   <dialog id="delete-confirmation">
                     Are you sure you want to delete this Cafe?
@@ -144,12 +144,14 @@
                         class="btn btn-success me-3 zoom-on-hover text-dark"
                         id="cancel-button-delete"
                         onclick="DeleteConfirmationClose()">
-                        Cancel
+                        <label for="cancel" class="btn-text">Cancel</label>
                       </button>
                       <a
                         href="{{ url_for('main.delete_cafe_home', cafe_id=cafe.id) }}"
                         ><button class="btn btn-danger zoom-on-hover text-dark">
-                          Delete this Cafe
+                          <label for="delete" class="btn-text"
+                            >Delete this Cafe</label
+                          >
                         </button></a
                       >
                     </div>

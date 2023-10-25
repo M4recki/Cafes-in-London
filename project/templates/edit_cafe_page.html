@@ -66,9 +66,7 @@
                       novalidate>
                       {{ form.csrf_token }} {{ form.hidden_tag() }}
                       <div class="form-outline mb-4">
-                        <label class="form-label" for="cafeName"
-                          >Cafe Name</label
-                        >
+                        <label class="form-label" for="name">Cafe Name</label>
                         {{ form.name(class="form-control form-control-lg",
                         id="name", value=cafe.name) }} {% if form.name.errors %}
                         <div class="fluid-container py-2">
@@ -109,11 +107,11 @@
                       </div>
 
                       <div class="form-outline mb-4">
-                        <label class="form-label" for="cafeMapUrl"
+                        <label class="form-label" for="map-url"
                           >Cafe Map Url</label
                         >
                         {{ form.map_url(class="form-control form-control-lg",
-                        id="map_url", value=cafe.map_url) }} {% if
+                        id="map-url", value=cafe.map_url) }} {% if
                         form.map_url.errors %}
                         <div class="fluid-container py-2">
                           <ul class="alert alert-danger px-2">
@@ -130,7 +128,7 @@
                           >Cafe Image Url</label
                         >
                         {{ form.img_url(class="form-control form-control-lg",
-                        id="img_url", value=cafe.img_url) }} {% if
+                        id="cafeImageUrl", value=cafe.img_url) }} {% if
                         form.img_url.errors %}
                         <div class="fluid-container py-2">
                           <ul class="alert alert-danger px-2">
@@ -147,8 +145,8 @@
                           >District</label
                         >
                         {{ form.location(class="form-control form-control-lg
-                        d-flex", id="location", value=cafe.location) }} {% if
-                        form.location.errors %}
+                        d-flex", id="cafeLocation", value=cafe.location) }} {%
+                        if form.location.errors %}
                         <div class="fluid-container py-2">
                           <ul class="alert alert-danger px-2">
                             {% for error in form.location.errors %}
@@ -161,7 +159,7 @@
 
                       <div class="form-check d-flex mb-3">
                         {{ form.has_sockets(class="form-check-input",
-                        id="has_sockets", checked=cafe.has_sockets) }}
+                        id="socketsCheck", checked=cafe.has_sockets) }}
                         <label class="form-check-label mx-2" for="socketsCheck">
                           Sockets Available
                         </label>
@@ -169,7 +167,7 @@
 
                       <div class="form-check d-flex mb-3">
                         {{ form.has_toilet(class="form-check-input",
-                        id="has_toilet", checked=cafe.has_toilet) }}
+                        id="toiletCheck", checked=cafe.has_toilet) }}
                         <label class="form-check-label mx-2" for="toiletCheck">
                           Toilet Available
                         </label>
@@ -177,7 +175,7 @@
 
                       <div class="form-check d-flex mb-3">
                         {{ form.has_wifi(class="form-check-input",
-                        id="has_wifi", checked=cafe.has_wifi) }}
+                        id="wifiCheck", checked=cafe.has_wifi) }}
                         <label class="form-check-label mx-2" for="wifiCheck">
                           Wi-Fi Available
                         </label>
@@ -185,7 +183,7 @@
 
                       <div class="form-check d-flex mb-3">
                         {{ form.can_take_calls(class="form-check-input",
-                        id="can_take_calls", checked=cafe.can_take_calls) }}
+                        id="callsCheck", checked=cafe.can_take_calls) }}
                         <label class="form-check-label mx-2" for="callsCheck">
                           Take Calls Available
                         </label>
@@ -211,7 +209,7 @@
                           Coffee Price
                         </label>
                         {{ form.coffee_price(class="form-control
-                        form-control-lg", id="coffee_price",
+                        form-control-lg", id="coffeePrice",
                         value=cafe.coffee_price) }} {% if
                         form.coffee_price.errors %}
                         <div class="fluid-container py-2">
@@ -228,7 +226,7 @@
                         <a href="{{ url_for('main.home') }}">
                           <button
                             class="btn btn-success btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2">
-                            Cancel
+                            <label for="cancel" class="btn-text">Cancel</label>
                           </button>
                         </a>
                         {{ form.submit(class="btn register-btn btn-block btn-lg

@@ -187,7 +187,8 @@
 
                 <section class="admin-panel">
                   <div class="d-flex justify-content-center">
-                    <a href="{{ url_for('main.suggest_cafe', cafe_id=cafe.id) }}">
+                    <a
+                      href="{{ url_for('main.suggest_cafe', cafe_id=cafe.id) }}">
                       <button
                         class="btn register-card-body btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2 admin-btn">
                         Edit
@@ -196,13 +197,17 @@
                     <a href="{{ url_for('main.home') }}">
                       <button
                         class="btn btn-primary btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2 admin-btn">
-                        Defer Decision
+                        <label for="defer" class="btn-text"
+                          >Defer Decision</label
+                        >
                       </button>
                     </a>
                     <button
                       class="btn btn-success btn-block btn-lg gradient-custom-4 text-body zoom-on-hover mx-2 admin-btn"
                       onclick="document.getElementById('add-confirmation').showModal()">
-                      Add this Cafe
+                      <label for="confirm" class="btn-text"
+                        >Add this Cafe</label
+                      >
                     </button>
                     <dialog id="add-confirmation">
                       Are you sure you want to add this Cafe to existing Cafes?
@@ -212,13 +217,15 @@
                           class="btn btn-danger me-3 zoom-on-hover text-dark"
                           id="cancel-button-add"
                           onclick="AddConfirmationClose()">
-                          Cancel
+                          <label for="cancel" class="btn-text">Cancel</label>
                         </button>
                         <a
                           href="{{ url_for('main.add_cafe_suggestion', cafe_id=cafe.id) }}">
                           <button
                             class="btn btn-success zoom-on-hover text-dark">
-                            Add this Cafe
+                            <label for="add" class="btn-text"
+                              >Add this Cafe</label
+                            >
                           </button>
                         </a>
                       </div>
@@ -226,7 +233,7 @@
                     <button
                       class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body zoom-on-hover text-dark mx-2 admin-btn"
                       onclick="document.getElementById('delete-confirmation').showModal()">
-                      Delete
+                      <label for="delete" class="btn-text">Delete</label>
                     </button>
                     <dialog id="delete-confirmation">
                       Are you sure you want to delete this Cafe?
@@ -236,13 +243,15 @@
                           class="btn btn-success me-3 zoom-on-hover text-dark"
                           id="cancel-button-delete"
                           onclick="DeleteConfirmationClose()">
-                          Cancel
+                          <label for="cancel" class="btn-text">Cancel</label>
                         </button>
                         <a
                           href="{{ url_for('main.delete_cafe_suggestion', cafe_id=cafe.id) }}"
                           ><button
                             class="btn btn-danger zoom-on-hover text-dark">
-                            Delete this Cafe
+                            <label for="delete" class="btn-text"
+                              >Delete this Cafe</label
+                            >
                           </button></a
                         >
                       </div>
