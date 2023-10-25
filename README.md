@@ -34,7 +34,59 @@ Here are also the requirements in the list below:
 
 ### PC version
 
+![1](https://github.com/M4recki/Cafes-in-London/assets/111280515/340e1d26-de91-4d66-bb55-9d4a7efc228d)
+
+![2](https://github.com/M4recki/Cafes-in-London/assets/111280515/b9c4543b-6879-43c8-9d7b-8a32cee9deca)
+
+![3](https://github.com/M4recki/Cafes-in-London/assets/111280515/6a14aca0-1a95-469b-be9b-b709e51fb90d)
+
+![4](https://github.com/M4recki/Cafes-in-London/assets/111280515/d5b7daac-e039-48d7-8a6f-0451892df651)
+
+![5](https://github.com/M4recki/Cafes-in-London/assets/111280515/3ca577b4-8cf7-4d3a-8df6-fae1f58c1f34)
+
+![6](https://github.com/M4recki/Cafes-in-London/assets/111280515/bf3a7183-180c-4c45-a7af-13f07715ac43)
+
+![7](https://github.com/M4recki/Cafes-in-London/assets/111280515/84bcdaa4-bfd8-4b7c-a7c8-87cef54664a4)
+
+![8](https://github.com/M4recki/Cafes-in-London/assets/111280515/629169d2-fe48-4c85-9b33-3008897cd789)
+
+![9](https://github.com/M4recki/Cafes-in-London/assets/111280515/efd3a855-f68c-4d77-b6c6-6989e665830b)
+
+![10](https://github.com/M4recki/Cafes-in-London/assets/111280515/c00987f9-d5c3-4b8b-aa35-7b273242a14e)
+
+![11](https://github.com/M4recki/Cafes-in-London/assets/111280515/a861bc3e-7332-4f68-bcea-fca1901788a2)
+
+![12](https://github.com/M4recki/Cafes-in-London/assets/111280515/b237aa6b-f43b-48b1-8d35-5efd94756529)
+
+![13](https://github.com/M4recki/Cafes-in-London/assets/111280515/82a5b923-7d9e-43c1-afc5-67dc465242b9)
+
 ### Mobile version
+
+![14](https://github.com/M4recki/Cafes-in-London/assets/111280515/1e047f1b-07a9-40ea-8dd0-54027e7265e6)
+
+![15](https://github.com/M4recki/Cafes-in-London/assets/111280515/79a7ffaa-2be3-4736-8086-06e84943f716)
+
+![16](https://github.com/M4recki/Cafes-in-London/assets/111280515/7dc2512c-929f-4d5a-b284-d1ba70512e3c)
+
+![17](https://github.com/M4recki/Cafes-in-London/assets/111280515/91d346be-8436-4f5c-a371-54dc2acdab63)
+
+![18](https://github.com/M4recki/Cafes-in-London/assets/111280515/f195519a-bf81-4414-b047-7f1b4ea68a03)
+
+![19](https://github.com/M4recki/Cafes-in-London/assets/111280515/782bd2c3-70a6-4dd5-a58f-646b117f1eca)
+
+![20](https://github.com/M4recki/Cafes-in-London/assets/111280515/b8bb9104-37cd-453a-9493-05dce1646644)
+
+![21](https://github.com/M4recki/Cafes-in-London/assets/111280515/6a2ea3c2-c3bd-4d72-912c-41b74851a214)
+
+![22](https://github.com/M4recki/Cafes-in-London/assets/111280515/38ace33c-b510-4808-9136-01258a72930d)
+
+![23](https://github.com/M4recki/Cafes-in-London/assets/111280515/3b4bb7dd-4115-4a82-8e86-a48b95df476b)
+
+![24](https://github.com/M4recki/Cafes-in-London/assets/111280515/bc13672f-bf2d-4247-b8f8-22a0315c0074)
+
+![25](https://github.com/M4recki/Cafes-in-London/assets/111280515/6c6cb60e-24d8-4b3a-988a-0b60a15deb96)
+
+![26](https://github.com/M4recki/Cafes-in-London/assets/111280515/5a8aada3-847d-4fe8-9978-482838c7c758)
 
 ## Usage
 
