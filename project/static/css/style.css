@@ -77,11 +77,12 @@ hr {
     margin-left: -200px;
 }
 
-@media (max-width: 1130px) {
+@media (min-width: 483px) and (max-width: 1130px) {
     .main-name {
       padding-right: 150px;
     }
   }
+  
 
 /* Cafe name in card color */
 
