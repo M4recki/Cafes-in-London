@@ -117,4 +117,4 @@ Please note that all functions that require authorisation (adding, editing and d
 
 ## Contact
 
-If you have any questions or comments about the ToDo List, please contact us at MARBARA93@edu.lublin.eu
+If you have any questions or comments about the Cafes in London, please contact us at MARBARA93@edu.lublin.eu
