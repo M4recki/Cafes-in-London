@@ -14,6 +14,13 @@ from wtforms.validators import DataRequired, Email, URL
 
 
 class CafeForm(FlaskForm):
+    """
+    Form for suggesting a new cafe to the application.
+
+    This form collects various details about the cafe, including its name, description, map URL,
+    image URL, location, amenities, seating capacity, coffee price, and a submit button.
+    """
+
     name = StringField("Cafe Name", validators=[DataRequired()])
     description = TextAreaField("Description", validators=[DataRequired()])
     map_url = StringField("Cafe Map URL", validators=[DataRequired(), URL()])
@@ -32,6 +39,14 @@ class CafeForm(FlaskForm):
 
 
 class RegisterForm(FlaskForm):
+    """
+    Form for user registration.
+
+    This form collects the user's name, email, password, confirmation of the password, agreement
+    to terms and conditions, and a submit button. It includes validation to ensure passwords match
+    and that all fields are filled out correctly.
+    """
+
     name = StringField("Your Name", validators=[DataRequired()])
     email = StringField("Your Email", validators=[DataRequired(), Email()])
     password = PasswordField("Password", validators=[DataRequired()])
@@ -50,6 +65,13 @@ class RegisterForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
+    """
+    Form for user login.
+
+    This form collects the user's email and password, and a submit button. It ensures that both
+    the email and password fields are filled out correctly.
+    """
+
     email = StringField("Your Email", validators=[DataRequired(), Email()])
     password = PasswordField("Your Password", validators=[DataRequired()])
     submit = SubmitField("Log in")
@@ -59,6 +81,13 @@ class LoginForm(FlaskForm):
 
 
 class ContactForm(FlaskForm):
+    """
+    Form for sending a contact message.
+
+    This form collects the user's name, email, subject, message, and a submit button. It ensures
+    that all fields are filled out correctly.
+    """
+
     name = StringField("Your Name", validators=[DataRequired()])
     email = StringField("Your Email", validators=[DataRequired(), Email()])
     subject = StringField("Subject", validators=[DataRequired()])
@@ -70,11 +99,24 @@ class ContactForm(FlaskForm):
 
 
 class CommentForm(FlaskForm):
+    """
+    Form for posting a comment.
+
+    This form collects the user's comment and a submit button. It ensures that the comment field
+    is filled out correctly.
+    """
+
     comment = TextAreaField("Comment", validators=[DataRequired()])
     submit = SubmitField("Submit")
 
 
 # Preview cafe form
 class PreviewCafeForm(FlaskForm):
+    """
+    Form for previewing a selected cafe.
+
+    This form allows the user to choose a cafe from a dropdown menu and submit the selection.
+    """
+
     cafe_pick = SelectField("Choose a cafe", validators=[DataRequired()], coerce=int)
     submit = SubmitField("Preview")

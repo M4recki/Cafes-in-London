@@ -15,7 +15,6 @@ The user-friendly "Cafes in London" app lets you manage your cafes as well as yo
 Here are also the requirements in the list below:
 
 - Flask
-- Flask_Gravatar
 - Flask_Bootstrap
 - Flask_CKEditor
 - Flask_Login

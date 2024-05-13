@@ -5,6 +5,12 @@ from project.extensions import db
 
 
 class User(UserMixin, db.Model):
+    """
+    Represents a user in the application.
+
+    Inherits from UserMixin for basic user functionality and db.Model for SQLAlchemy ORM capabilities.
+    """
+
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -16,6 +22,13 @@ class User(UserMixin, db.Model):
 
 
 class Cafe(db.Model):
+    """
+    Represents a cafe in the application.
+
+    Stores information about each cafe, such as its name, description, map URL, image URL,
+    location, amenities, seating capacity, coffee price, and comments.
+    """
+
     __tablename__ = "cafe"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
@@ -36,6 +49,14 @@ class Cafe(db.Model):
 
 
 class SuggestCafe(db.Model):
+    """
+    Represents a suggested cafe by a user.
+
+    Allows users to suggest new cafes to the application, including details like the cafe's
+    name, description, map URL, image URL, location, amenities, seating capacity, coffee price,
+    and the author of the suggestion.
+    """
+
     __tablename__ = "suggest_cafe"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False, unique=True)
@@ -59,6 +80,12 @@ class SuggestCafe(db.Model):
 
 
 class Comment(db.Model):
+    """
+    Represents a comment made by a user on a cafe.
+
+    Stores the comment text, the cafe it refers to, and the author of the comment.
+    """
+
     __tablename__ = "comments"
     id = db.Column(db.Integer, primary_key=True)
     comment = db.Column(db.Text, nullable=False)
