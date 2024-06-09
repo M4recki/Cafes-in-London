@@ -99,7 +99,7 @@ def home():
 
 @main.route("/cafe/<int:cafe_id>", methods=["GET", "POST"])
 def cafe_details(cafe_id):
-    from project.extensions import gravatar
+    from extensions import gravatar
 
     """Renders the cafe details page and handles commenting on the cafe.
     

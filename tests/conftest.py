@@ -1,6 +1,5 @@
 import pytest
 from project.main import app as main_app
-from project.models import User, Cafe, Comment, db
 from flask import Response
 
 
@@ -20,12 +19,7 @@ def app():
     app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.db"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     app.config["TESTING"] = True
-    with app.app_context():
-        db.create_all()
     yield app
-    with app.app_context():
-        db.session.remove()
-        db.drop_all()
 
 
 # Pytest fixture to create a client
@@ -44,24 +38,3 @@ def client(app):
         FlaskClient: The test client for the Flask app.
     """
     return app.test_client()
-
-
-# Pytest fixture to clean up the database after each test
-
-
-@pytest.fixture(autouse=True)
-def clean_database(client, app):
-    """Cleans up the database after each test.
-
-    This fixture deletes all data from the User, Cafe, and Comment tables in the database after each test is run.
-
-    Args:
-        client (FlaskClient): The test client for the Flask app.
-        app (Flask): The Flask app instance.
-    """
-
-    with app.app_context():
-        db.session.query(User).delete()
-        db.session.query(Cafe).delete()
-        db.session.query(Comment).delete()
-        db.session.commit()
